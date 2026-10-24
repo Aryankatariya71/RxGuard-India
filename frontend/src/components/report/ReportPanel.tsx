@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Copy, Printer } from 'lucide-react'
 import type { Alert, AnalyzeResponse, PatientFormState } from '../../api/types'
 import { ErrorBoundary } from '../common/ErrorBoundary'
@@ -16,6 +17,9 @@ interface Props {
   loading: boolean
   patient: PatientFormState
   offline: boolean
+  prescriptionText?: string
+  activeKeys?: Set<string>
+  onToggleActive?: (key: string, next: boolean) => void
   onPickCandidate: (line: string, brandName: string) => void
 }
 
@@ -24,9 +28,16 @@ export function ReportPanel({
   loading,
   patient,
   offline,
+  prescriptionText,
+  activeKeys,
+  onToggleActive,
   onPickCandidate,
 }: Props) {
   const [why, setWhy] = useState<Alert | null>(null)
+  const reduce = useReducedMotion()
+  const animKey = report
+    ? `${report.verdict}-${report.counts?.critical}-${report.counts?.review}-${report.items?.length}`
+    : 'empty'
 
   const copyReport = async () => {
     if (!report) return
@@ -36,7 +47,8 @@ export function ReportPanel({
       `Critical: ${report.counts.critical} · Review: ${report.counts.review} · Info: ${report.counts.info}`,
       '',
       ...report.alerts.map(
-        (a) => `[${a.tier}] ${a.title}\n${a.reason}\nAction: ${a.suggested_action}\nRule: ${a.source_rule_id}`,
+        (a) =>
+          `[${a.tier}] ${a.title}\n${a.reason}\nAction: ${a.suggested_action}\nRule: ${a.source_rule_id}`,
       ),
     ]
     await navigator.clipboard.writeText(lines.join('\n\n'))
@@ -82,7 +94,13 @@ export function ReportPanel({
       )}
 
       {report && (
-        <>
+        <motion.div
+          key={animKey}
+          initial={reduce ? false : { opacity: 0.6, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+          className="space-y-6"
+        >
           <VerdictCard report={report} />
           <AlertList alerts={report.alerts || []} onWhy={setWhy} />
           <ErrorBoundary label="Your day timeline">
@@ -90,6 +108,9 @@ export function ReportPanel({
           </ErrorBoundary>
           <MedicinesFound
             items={report.items || []}
+            prescriptionText={prescriptionText}
+            activeKeys={activeKeys}
+            onToggleActive={onToggleActive}
             onPickCandidate={onPickCandidate}
           />
           <IngredientFlow
@@ -102,7 +123,7 @@ export function ReportPanel({
             patientAge={patient.age_years}
             patientWeight={patient.weight_kg}
           />
-        </>
+        </motion.div>
       )}
 
       <WhyDrawer

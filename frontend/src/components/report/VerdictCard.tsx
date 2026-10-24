@@ -15,18 +15,19 @@ export function VerdictCard({ report }: Props) {
   const review = counts?.review ?? 0
   const info = counts?.info ?? 0
 
-  let headline = 'No critical issues found'
+  // Never claim "safe" / "no issues" — cautious labels only
+  let headline = 'No matching critical rule in this prototype dataset'
   let Icon = ShieldCheck
-  let tone = 'text-emerald-400'
+  let tone = 'text-sky-300'
   let pulse = false
 
   if (verdict === 'action_needed' || critical > 0) {
-    headline = `ACTION NEEDED: ${critical} critical issue${critical === 1 ? '' : 's'}`
+    headline = `Review recommended: ${critical} critical finding${critical === 1 ? '' : 's'}`
     Icon = ShieldAlert
     tone = 'text-rose-400'
     pulse = !reduce
   } else if (verdict === 'review' || review > 0) {
-    headline = `Review recommended: ${review} item${review === 1 ? '' : 's'}`
+    headline = `Potential findings: ${review} item${review === 1 ? '' : 's'} for review`
     Icon = Shield
     tone = 'text-amber-400'
   }
