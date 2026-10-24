@@ -1,0 +1,60 @@
+{
+  "_schema": {
+    "description": "Pharmacist-maintained overrides for brands whose short_composition fields cannot represent 3+ ingredients (or need corrected strengths). expand_brand checks this file BEFORE parsing short_composition1/2.",
+    "entry_shape": {
+      "name_norm": "lowercase brand name matching brands_clean.name_norm exactly",
+      "ingredients": [
+        {
+          "ingredient": "normalized lowercase ingredient name (after synonyms)",
+          "strength_value": "float or null",
+          "unit": "mg | mcg | g | iu | % | ml | null",
+          "per_value": "float or null",
+          "per_unit": "str or null",
+          "per_unit_missing": "bool",
+          "strength_missing": "bool",
+          "raw": "original text for audit",
+          "parse_error": "bool — should be false for curated overrides"
+        }
+      ]
+    },
+    "example": {
+      "name_norm": "ascoril ls syrup",
+      "ingredients": [
+        {
+          "ingredient": "ambroxol",
+          "strength_value": 30.0,
+          "unit": "mg",
+          "per_value": 5.0,
+          "per_unit": "ml",
+          "per_unit_missing": false,
+          "strength_missing": false,
+          "raw": "Ambroxol (30mg/5ml)",
+          "parse_error": false
+        },
+        {
+          "ingredient": "levalbuterol",
+          "strength_value": 1.0,
+          "unit": "mg",
+          "per_value": 5.0,
+          "per_unit": "ml",
+          "per_unit_missing": false,
+          "strength_missing": false,
+          "raw": "Levosalbutamol (1mg/5ml)",
+          "parse_error": false
+        },
+        {
+          "ingredient": "guaifenesin",
+          "strength_value": 50.0,
+          "unit": "mg",
+          "per_value": 5.0,
+          "per_unit": "ml",
+          "per_unit_missing": false,
+          "strength_missing": false,
+          "raw": "Guaifenesin (50mg/5ml) [override]",
+          "parse_error": false
+        }
+      ]
+    }
+  },
+  "overrides": []
+}

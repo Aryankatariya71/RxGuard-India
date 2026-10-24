@@ -1,0 +1,362 @@
+[
+  {
+    "id": "MAX-001",
+    "ingredient": "paracetamol",
+    "adult_max_mg_day": 4000,
+    "pediatric_mg_per_kg_day": 60,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": null,
+      "kidney_failure": null
+    },
+    "elderly_note": "Consider lower total daily dose in frail elderly; avoid multiple paracetamol-containing products.",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Commonly cited OTC adult max 4 g/day; pediatric 60 mg/kg/day widely cited. Renal numeric caps UNSURE - pharmacist to fill."
+  },
+  {
+    "id": "MAX-002",
+    "ingredient": "ibuprofen",
+    "adult_max_mg_day": 3200,
+    "pediatric_mg_per_kg_day": 30,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": "avoid",
+      "kidney_failure": "avoid"
+    },
+    "elderly_note": "Prefer lowest effective dose and shortest duration; higher GI/renal risk in elderly.",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Adult Rx max often cited 3200 mg/day; OTC limits lower. Pediatric 30 mg/kg/day commonly cited."
+  },
+  {
+    "id": "MAX-003",
+    "ingredient": "diclofenac",
+    "adult_max_mg_day": 150,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": "avoid",
+      "kidney_failure": "avoid"
+    },
+    "elderly_note": "Use lowest effective dose; cardiovascular and GI risk increase with age.",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Oral diclofenac commonly capped around 150 mg/day. Pediatric mg/kg UNSURE - pharmacist to fill."
+  },
+  {
+    "id": "MAX-004",
+    "ingredient": "aceclofenac",
+    "adult_max_mg_day": 200,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": "avoid",
+      "kidney_failure": "avoid"
+    },
+    "elderly_note": "Caution in elderly due to NSAID class risks.",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Common adult regimen 100 mg BID (200 mg/day). Pediatric dosing UNSURE - pharmacist to fill."
+  },
+  {
+    "id": "MAX-005",
+    "ingredient": "nimesulide",
+    "adult_max_mg_day": 200,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": "avoid",
+      "kidney_failure": "avoid"
+    },
+    "elderly_note": "Hepatic risk; avoid prolonged use.",
+    "source_url": "https://www.ema.europa.eu",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Often limited to short courses ~200 mg/day in regions where available. Pediatric UNSURE - pharmacist to fill."
+  },
+  {
+    "id": "MAX-006",
+    "ingredient": "mefenamic acid",
+    "adult_max_mg_day": 1500,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": "avoid",
+      "kidney_failure": "avoid"
+    },
+    "elderly_note": "NSAID caution in elderly.",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Adult max commonly cited 1250–1500 mg/day depending on label; using 1500 DRAFT. Pediatric UNSURE."
+  },
+  {
+    "id": "MAX-007",
+    "ingredient": "aspirin",
+    "adult_max_mg_day": 4000,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": null,
+      "kidney_failure": null
+    },
+    "elderly_note": "Higher bleed risk; antiplatelet doses are much lower than analgesic max.",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Analgesic/antipyretic adult max often ~4 g/day. Antiplatelet dosing (e.g. 75–150 mg) is separate. Pediatric generally avoided (Reye) — min_age UNSURE."
+  },
+  {
+    "id": "MAX-008",
+    "ingredient": "tramadol",
+    "adult_max_mg_day": 400,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": null,
+      "kidney_failure": null
+    },
+    "elderly_note": "Start low; fall and seizure risk.",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Immediate-release adult max commonly 400 mg/day. Exact renal numeric caps UNSURE - pharmacist to fill."
+  },
+  {
+    "id": "MAX-009",
+    "ingredient": "cetirizine",
+    "adult_max_mg_day": 10,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": 10,
+      "mild_moderate": 5,
+      "severe": 5,
+      "kidney_failure": null
+    },
+    "elderly_note": "Sedation risk; consider lower dose in renal impairment.",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Adult 10 mg/day typical. Renal adjustment simplified DRAFT — pharmacist to verify."
+  },
+  {
+    "id": "MAX-010",
+    "ingredient": "levocetirizine",
+    "adult_max_mg_day": 5,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": 5,
+      "mild_moderate": 2.5,
+      "severe": null,
+      "kidney_failure": "avoid"
+    },
+    "elderly_note": "Adjust for renal function.",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Adult 5 mg/day typical. Renal bands simplified DRAFT."
+  },
+  {
+    "id": "MAX-011",
+    "ingredient": "domperidone",
+    "adult_max_mg_day": 30,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": null,
+      "kidney_failure": null
+    },
+    "elderly_note": "QT prolongation risk; avoid with interacting drugs.",
+    "source_url": "https://www.ema.europa.eu",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "EU restrictions commonly cite max 30 mg/day short courses. Pediatric UNSURE."
+  },
+  {
+    "id": "MAX-012",
+    "ingredient": "pantoprazole",
+    "adult_max_mg_day": 40,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": null,
+      "kidney_failure": null
+    },
+    "elderly_note": null,
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Usual GERD dose 40 mg/day; higher specialty doses exist. Using 40 as conservative DRAFT ceiling for demo."
+  },
+  {
+    "id": "MAX-013",
+    "ingredient": "omeprazole",
+    "adult_max_mg_day": 40,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": null,
+      "kidney_failure": null
+    },
+    "elderly_note": null,
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Common adult doses 20–40 mg/day; higher for some indications. Conservative DRAFT 40."
+  },
+  {
+    "id": "MAX-014",
+    "ingredient": "metformin",
+    "adult_max_mg_day": 2550,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": 2550,
+      "mild_moderate": null,
+      "severe": "avoid",
+      "kidney_failure": "avoid"
+    },
+    "elderly_note": "Assess renal function; risk of lactic acidosis if eGFR low.",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "IR max often ~2550 mg/day. Exact eGFR cutoffs UNSURE beyond avoid in severe/failure — pharmacist to fill mild_moderate."
+  },
+  {
+    "id": "MAX-015",
+    "ingredient": "amoxicillin",
+    "adult_max_mg_day": null,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": null,
+      "kidney_failure": null
+    },
+    "elderly_note": null,
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "UNSURE - pharmacist to fill. Dose highly indication-dependent (often 1500–3000+ mg/day)."
+  },
+  {
+    "id": "MAX-016",
+    "ingredient": "azithromycin",
+    "adult_max_mg_day": null,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": null,
+      "kidney_failure": null
+    },
+    "elderly_note": null,
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "UNSURE - pharmacist to fill. Usually course-based (e.g. 500 mg day 1 then 250 mg), not a simple daily chronic max."
+  },
+  {
+    "id": "MAX-017",
+    "ingredient": "atorvastatin",
+    "adult_max_mg_day": 80,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": null,
+      "kidney_failure": null
+    },
+    "elderly_note": "Myopathy risk rises with dose and interacting drugs.",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Labeled max commonly 80 mg/day."
+  },
+  {
+    "id": "MAX-018",
+    "ingredient": "amlodipine",
+    "adult_max_mg_day": 10,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": null,
+      "kidney_failure": null
+    },
+    "elderly_note": "Start lower in elderly (edema, hypotension).",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Adult max commonly 10 mg/day."
+  },
+  {
+    "id": "MAX-019",
+    "ingredient": "ondansetron",
+    "adult_max_mg_day": 24,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": null,
+      "kidney_failure": null
+    },
+    "elderly_note": "QT prolongation risk.",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Oral daily totals vary by indication; 24 mg/day sometimes cited for chemo regimens — DRAFT."
+  },
+  {
+    "id": "MAX-020",
+    "ingredient": "montelukast",
+    "adult_max_mg_day": 10,
+    "pediatric_mg_per_kg_day": null,
+    "min_age_years": null,
+    "renal_adjustment": {
+      "normal": null,
+      "mild_moderate": null,
+      "severe": null,
+      "kidney_failure": null
+    },
+    "elderly_note": "Neuropsychiatric adverse-effect warnings apply.",
+    "source_url": "https://www.fda.gov/drugs",
+    "verified_by_pharmacist": false,
+    "status": "DRAFT",
+    "notes": "Adult asthma/allergic rhinitis dose commonly 10 mg once daily."
+  }
+]

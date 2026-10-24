@@ -1,0 +1,1 @@
+This is a deterministic rules engine, not an LLM judge. Every alert must include its source rule. Use rapidfuzz for brand matching. Write pytest tests for every module. Decision-support only, never final medical authority.

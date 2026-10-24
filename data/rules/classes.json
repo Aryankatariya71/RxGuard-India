@@ -1,0 +1,113 @@
+{
+  "nsaid": [
+    "ibuprofen",
+    "diclofenac",
+    "aceclofenac",
+    "nimesulide",
+    "mefenamic acid",
+    "aspirin",
+    "naproxen",
+    "ketorolac",
+    "piroxicam",
+    "indomethacin",
+    "etoricoxib",
+    "celecoxib"
+  ],
+  "ace_inhibitor": [
+    "ramipril",
+    "enalapril",
+    "lisinopril",
+    "perindopril",
+    "captopril",
+    "quinapril",
+    "fosinopril",
+    "trandolapril"
+  ],
+  "arb": [
+    "telmisartan",
+    "losartan",
+    "olmesartan",
+    "valsartan",
+    "candesartan",
+    "irbesartan",
+    "azilsartan"
+  ],
+  "ppi": [
+    "pantoprazole",
+    "omeprazole",
+    "rabeprazole",
+    "esomeprazole",
+    "lansoprazole",
+    "dexlansoprazole"
+  ],
+  "statin": [
+    "atorvastatin",
+    "rosuvastatin",
+    "simvastatin",
+    "pravastatin",
+    "pitavastatin",
+    "fluvastatin",
+    "lovastatin"
+  ],
+  "ssri": [
+    "sertraline",
+    "fluoxetine",
+    "escitalopram",
+    "paroxetine",
+    "citalopram",
+    "fluvoxamine"
+  ],
+  "beta_blocker": [
+    "metoprolol",
+    "atenolol",
+    "propranolol",
+    "bisoprolol",
+    "carvedilol",
+    "nebivolol",
+    "labetalol"
+  ],
+  "fluoroquinolone": [
+    "ciprofloxacin",
+    "levofloxacin",
+    "ofloxacin",
+    "moxifloxacin",
+    "norfloxacin"
+  ],
+  "cephalosporin": [
+    "ceftriaxone",
+    "cefixime",
+    "cefuroxime",
+    "cefpodoxime",
+    "cefalexin",
+    "cefoperazone",
+    "ceftazidime"
+  ],
+  "penicillin": [
+    "amoxicillin",
+    "ampicillin",
+    "cloxacillin",
+    "piperacillin",
+    "benzylpenicillin"
+  ],
+  "macrolide": [
+    "azithromycin",
+    "clarithromycin",
+    "erythromycin",
+    "roxithromycin"
+  ],
+  "opioid": [
+    "tramadol",
+    "codeine",
+    "morphine",
+    "fentanyl",
+    "oxycodone",
+    "tapentadol"
+  ],
+  "sulfonylurea": [
+    "glimepiride",
+    "glipizide",
+    "gliclazide",
+    "glyburide",
+    "glibenclamide"
+  ]
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "ingredient": "paracetamol",
+    "adult_max_mg_day": 4000,
+    "pediatric_mg_per_kg_day": 60,
+    "source": "Commonly cited label limit, DRAFT",
+    "status": "DRAFT - pending pharmacist verification"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "adult_max_mg_day": 3200,
+    "pediatric_mg_per_kg_day": 30,
+    "source": "Commonly cited label limit, DRAFT",
+    "status": "DRAFT - pending pharmacist verification"
+  },
+  {
+    "ingredient": "diclofenac",
+    "adult_max_mg_day": 150,
+    "pediatric_mg_per_kg_day": null,
+    "source": "Commonly cited label limit, DRAFT",
+    "status": "DRAFT - pending pharmacist verification"
+  },
+  {
+    "ingredient": "aceclofenac",
+    "adult_max_mg_day": 200,
+    "pediatric_mg_per_kg_day": null,
+    "source": "Commonly cited label limit, DRAFT",
+    "status": "DRAFT - pending pharmacist verification"
+  },
+  {
+    "ingredient": "aspirin",
+    "adult_max_mg_day": 4000,
+    "pediatric_mg_per_kg_day": null,
+    "source": "Commonly cited label limit, DRAFT",
+    "status": "DRAFT - pending pharmacist verification"
+  },
+  {
+    "ingredient": "tramadol",
+    "adult_max_mg_day": 400,
+    "pediatric_mg_per_kg_day": null,
+    "source": "Commonly cited label limit, DRAFT",
+    "status": "DRAFT - pending pharmacist verification"
+  },
+  {
+    "ingredient": "cetirizine",
+    "adult_max_mg_day": 10,
+    "pediatric_mg_per_kg_day": null,
+    "source": "Commonly cited label limit, DRAFT",
+    "status": "DRAFT - pending pharmacist verification"
+  },
+  {
+    "ingredient": "domperidone",
+    "adult_max_mg_day": 30,
+    "pediatric_mg_per_kg_day": null,
+    "source": "Commonly cited label limit, DRAFT",
+    "status": "DRAFT - pending pharmacist verification"
+  }
+]
