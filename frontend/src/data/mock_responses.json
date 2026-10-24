@@ -1,0 +1,919 @@
+{
+  "hidden-para": {
+    "empty": false,
+    "items": [
+      {
+        "line": "Tab Dolo 650 1-0-1 x 5 days",
+        "matched_brand": "Dolo 650 Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "paracetamol",
+            "ingredient_full": "paracetamol",
+            "strength_value": 650.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Paracetamol (650mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 58235,
+        "resolved": true
+      },
+      {
+        "line": "Tab Crocin Advance BD",
+        "matched_brand": "Crocin Advance Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "paracetamol",
+            "ingredient_full": "paracetamol",
+            "strength_value": 500.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Paracetamol (500mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 33924,
+        "resolved": true
+      },
+      {
+        "line": "Tab Combiflam 1-0-1",
+        "matched_brand": "Combiflam Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "ibuprofen",
+            "ingredient_full": "ibuprofen",
+            "strength_value": 400.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Ibuprofen (400mg)",
+            "parse_error": false
+          },
+          {
+            "ingredient": "paracetamol",
+            "ingredient_full": "paracetamol",
+            "strength_value": 325.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Paracetamol (325mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 33912,
+        "resolved": true
+      }
+    ],
+    "daily_doses": {
+      "by_ingredient": [
+        {
+          "ingredient": "ibuprofen",
+          "total_mg_per_day": 800.0,
+          "unit": "mg",
+          "contributions": [
+            {
+              "brand": "Combiflam Tablet",
+              "mg_per_day": 800.0,
+              "assumed_max": false
+            }
+          ]
+        },
+        {
+          "ingredient": "paracetamol",
+          "total_mg_per_day": 2950.0,
+          "unit": "mg",
+          "contributions": [
+            {
+              "brand": "Dolo 650 Tablet",
+              "mg_per_day": 1300.0,
+              "assumed_max": false,
+              "duration_days": 5
+            },
+            {
+              "brand": "Crocin Advance Tablet",
+              "mg_per_day": 1000.0,
+              "assumed_max": false
+            },
+            {
+              "brand": "Combiflam Tablet",
+              "mg_per_day": 650.0,
+              "assumed_max": false
+            }
+          ]
+        }
+      ],
+      "strength_unclear": []
+    },
+    "alerts": [
+      {
+        "id": "DUP-paracetamol",
+        "type": "duplicate",
+        "tier": "review",
+        "title": "Duplicate paracetamol",
+        "reason": "Paracetamol appears in more than one product (Dolo 650 Tablet, Crocin Advance Tablet, Combiflam Tablet); combined total 2950 mg/day \u2014 review for unintended duplication.",
+        "suggested_action": "Confirm whether both products are intentional; prefer a single source.",
+        "ingredients": [
+          "paracetamol"
+        ],
+        "brands": [
+          "Dolo 650 Tablet",
+          "Crocin Advance Tablet",
+          "Combiflam Tablet"
+        ],
+        "source_rule_id": "MAX-001",
+        "source_label": "duplicate_ingredient",
+        "total_mg_per_day": 2950.0
+      }
+    ],
+    "counts": {
+      "critical": 0,
+      "review": 1,
+      "info": 0
+    },
+    "verdict": "review",
+    "patient": {
+      "age_years": 35,
+      "weight_kg": 70,
+      "sex": "M",
+      "egfr": 90,
+      "creatinine_mg_dl": null
+    },
+    "needs_confirmation": []
+  },
+  "adult-od": {
+    "empty": false,
+    "items": [
+      {
+        "line": "Tab Dolo 650 1-1-1-1",
+        "matched_brand": "Dolo 650 Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "paracetamol",
+            "ingredient_full": "paracetamol",
+            "strength_value": 650.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Paracetamol (650mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 58235,
+        "resolved": true
+      },
+      {
+        "line": "Tab Crocin Advance QID",
+        "matched_brand": "Crocin Advance Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "paracetamol",
+            "ingredient_full": "paracetamol",
+            "strength_value": 500.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Paracetamol (500mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 33924,
+        "resolved": true
+      },
+      {
+        "line": "Tab Combiflam 1-1-1",
+        "matched_brand": "Combiflam Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "ibuprofen",
+            "ingredient_full": "ibuprofen",
+            "strength_value": 400.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Ibuprofen (400mg)",
+            "parse_error": false
+          },
+          {
+            "ingredient": "paracetamol",
+            "ingredient_full": "paracetamol",
+            "strength_value": 325.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Paracetamol (325mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 33912,
+        "resolved": true
+      }
+    ],
+    "daily_doses": {
+      "by_ingredient": [
+        {
+          "ingredient": "ibuprofen",
+          "total_mg_per_day": 1200.0,
+          "unit": "mg",
+          "contributions": [
+            {
+              "brand": "Combiflam Tablet",
+              "mg_per_day": 1200.0,
+              "assumed_max": false
+            }
+          ]
+        },
+        {
+          "ingredient": "paracetamol",
+          "total_mg_per_day": 5575.0,
+          "unit": "mg",
+          "contributions": [
+            {
+              "brand": "Dolo 650 Tablet",
+              "mg_per_day": 2600.0,
+              "assumed_max": false
+            },
+            {
+              "brand": "Crocin Advance Tablet",
+              "mg_per_day": 2000.0,
+              "assumed_max": false
+            },
+            {
+              "brand": "Combiflam Tablet",
+              "mg_per_day": 975.0,
+              "assumed_max": false
+            }
+          ]
+        }
+      ],
+      "strength_unclear": []
+    },
+    "alerts": [
+      {
+        "id": "MERGED-DUP-DOSE-paracetamol",
+        "type": "duplicate_dose",
+        "tier": "critical",
+        "title": "Paracetamol duplication and dose",
+        "reason": "Paracetamol in Dolo 650 Tablet, Crocin Advance Tablet, Combiflam Tablet: 5575 mg/day vs adult limit 4000 mg/day (139%). Draft rule, pending pharmacist verification.",
+        "suggested_action": "Reduce total daily dose or remove duplicate sources; confirm with prescriber.",
+        "ingredients": [
+          "paracetamol"
+        ],
+        "brands": [
+          "Dolo 650 Tablet",
+          "Crocin Advance Tablet",
+          "Combiflam Tablet"
+        ],
+        "source_rule_id": "MAX-001",
+        "source_label": "merged:duplicate+dose",
+        "total_mg_per_day": 5575.0,
+        "limit_mg_day": 4000.0,
+        "percent": 139.375
+      }
+    ],
+    "counts": {
+      "critical": 1,
+      "review": 0,
+      "info": 0
+    },
+    "verdict": "action_needed",
+    "patient": {
+      "age_years": 35,
+      "weight_kg": 70,
+      "sex": "M",
+      "egfr": 90,
+      "creatinine_mg_dl": null
+    },
+    "needs_confirmation": []
+  },
+  "child-od": {
+    "empty": false,
+    "items": [
+      {
+        "line": "Tab Dolo 650 TDS",
+        "matched_brand": "Dolo 650 Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "paracetamol",
+            "ingredient_full": "paracetamol",
+            "strength_value": 650.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Paracetamol (650mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 58235,
+        "resolved": true
+      },
+      {
+        "line": "Tab Crocin Advance BD",
+        "matched_brand": "Crocin Advance Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "paracetamol",
+            "ingredient_full": "paracetamol",
+            "strength_value": 500.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Paracetamol (500mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 33924,
+        "resolved": true
+      }
+    ],
+    "daily_doses": {
+      "by_ingredient": [
+        {
+          "ingredient": "paracetamol",
+          "total_mg_per_day": 2950.0,
+          "unit": "mg",
+          "contributions": [
+            {
+              "brand": "Dolo 650 Tablet",
+              "mg_per_day": 1950.0,
+              "assumed_max": false
+            },
+            {
+              "brand": "Crocin Advance Tablet",
+              "mg_per_day": 1000.0,
+              "assumed_max": false
+            }
+          ]
+        }
+      ],
+      "strength_unclear": []
+    },
+    "alerts": [
+      {
+        "id": "MERGED-DUP-DOSE-paracetamol",
+        "type": "duplicate_dose",
+        "tier": "critical",
+        "title": "Paracetamol duplication and dose",
+        "reason": "Paracetamol in Dolo 650 Tablet, Crocin Advance Tablet: 2950 mg/day vs adult limit 1080 mg/day (273%). Draft rule, pending pharmacist verification.",
+        "suggested_action": "Reduce dose or frequency; confirm weight-based dosing with prescriber.",
+        "ingredients": [
+          "paracetamol"
+        ],
+        "brands": [
+          "Dolo 650 Tablet",
+          "Crocin Advance Tablet"
+        ],
+        "source_rule_id": "MAX-001",
+        "source_label": "merged:duplicate+dose",
+        "total_mg_per_day": 2950.0,
+        "limit_mg_day": 1080.0,
+        "percent": 273.14814814814815
+      }
+    ],
+    "counts": {
+      "critical": 1,
+      "review": 0,
+      "info": 0
+    },
+    "verdict": "action_needed",
+    "patient": {
+      "age_years": 5,
+      "weight_kg": 18,
+      "sex": "M",
+      "egfr": null,
+      "creatinine_mg_dl": null
+    },
+    "needs_confirmation": []
+  },
+  "warfarin": {
+    "empty": false,
+    "items": [
+      {
+        "line": "Tab Warf 5 1-0-0",
+        "matched_brand": "Warf 5 Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "warfarin",
+            "ingredient_full": "warfarin",
+            "strength_value": 5.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Warfarin (5mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 241434,
+        "resolved": true
+      },
+      {
+        "line": "Tab Ecosprin 75 OD",
+        "matched_brand": "Ecosprin 75 Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "aspirin",
+            "ingredient_full": "aspirin",
+            "strength_value": 75.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Aspirin (75mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 72306,
+        "resolved": true
+      },
+      {
+        "line": "Tab Brufen 400 TDS",
+        "matched_brand": "Brufen 400 Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "ibuprofen",
+            "ingredient_full": "ibuprofen",
+            "strength_value": 400.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Ibuprofen (400mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 25739,
+        "resolved": true
+      }
+    ],
+    "daily_doses": {
+      "by_ingredient": [
+        {
+          "ingredient": "aspirin",
+          "total_mg_per_day": 75.0,
+          "unit": "mg",
+          "contributions": [
+            {
+              "brand": "Ecosprin 75 Tablet",
+              "mg_per_day": 75.0,
+              "assumed_max": false
+            }
+          ]
+        },
+        {
+          "ingredient": "ibuprofen",
+          "total_mg_per_day": 1200.0,
+          "unit": "mg",
+          "contributions": [
+            {
+              "brand": "Brufen 400 Tablet",
+              "mg_per_day": 1200.0,
+              "assumed_max": false
+            }
+          ]
+        },
+        {
+          "ingredient": "warfarin",
+          "total_mg_per_day": 5.0,
+          "unit": "mg",
+          "contributions": [
+            {
+              "brand": "Warf 5 Tablet",
+              "mg_per_day": 5.0,
+              "assumed_max": false
+            }
+          ]
+        }
+      ],
+      "strength_unclear": []
+    },
+    "alerts": [
+      {
+        "id": "INT-aspirin+ibuprofen",
+        "type": "interaction",
+        "tier": "critical",
+        "title": "Interaction: aspirin + ibuprofen",
+        "reason": "Ibuprofen may interfere with aspirin's antiplatelet effect and increase GI bleeding risk. Draft rule, pending pharmacist verification.",
+        "suggested_action": "If both needed, separate dosing per clinician advice; watch for GI symptoms.",
+        "ingredients": [
+          "aspirin",
+          "ibuprofen"
+        ],
+        "brands": [
+          "Ecosprin 75 Tablet",
+          "Brufen 400 Tablet"
+        ],
+        "source_rule_id": "CUR-INT-020",
+        "source_label": "curated:CUR-INT-020",
+        "mechanism": "Ibuprofen may interfere with aspirin's antiplatelet effect and increase GI bleeding risk."
+      },
+      {
+        "id": "INT-aspirin+warfarin",
+        "type": "interaction",
+        "tier": "critical",
+        "title": "Interaction: aspirin + warfarin",
+        "reason": "Additive antiplatelet/anticoagulant effect increases bleeding risk. Draft rule, pending pharmacist verification.",
+        "suggested_action": "Avoid combination unless specialist-directed; monitor INR and bleeding closely.",
+        "ingredients": [
+          "aspirin",
+          "warfarin"
+        ],
+        "brands": [
+          "Ecosprin 75 Tablet",
+          "Warf 5 Tablet"
+        ],
+        "source_rule_id": "CUR-INT-001",
+        "source_label": "curated:CUR-INT-001",
+        "mechanism": "Additive antiplatelet/anticoagulant effect increases bleeding risk."
+      },
+      {
+        "id": "INT-ibuprofen+warfarin",
+        "type": "interaction",
+        "tier": "critical",
+        "title": "Interaction: ibuprofen + warfarin",
+        "reason": "NSAIDs increase GI bleeding risk and may displace warfarin protein binding. Draft rule, pending pharmacist verification.",
+        "suggested_action": "Prefer alternative analgesic (e.g. paracetamol within limits); monitor INR if unavoidable.",
+        "ingredients": [
+          "ibuprofen",
+          "warfarin"
+        ],
+        "brands": [
+          "Brufen 400 Tablet",
+          "Warf 5 Tablet"
+        ],
+        "source_rule_id": "CUR-INT-002",
+        "source_label": "curated:CUR-INT-002",
+        "mechanism": "NSAIDs increase GI bleeding risk and may displace warfarin protein binding."
+      },
+      {
+        "id": "DUP-CLASS-nsaid-aspirin+ibuprofen",
+        "type": "duplicate",
+        "tier": "review",
+        "title": "Duplicate nsaid class",
+        "reason": "More than one nsaid on this prescription: aspirin, ibuprofen (brands: Brufen 400 Tablet, Ecosprin 75 Tablet).",
+        "suggested_action": "Use a single nsaid agent unless a clinician explicitly intends combination therapy.",
+        "ingredients": [
+          "aspirin",
+          "ibuprofen"
+        ],
+        "brands": [
+          "Brufen 400 Tablet",
+          "Ecosprin 75 Tablet"
+        ],
+        "source_rule_id": "CLASS-DUP-nsaid",
+        "source_label": "class_duplicate:nsaid"
+      }
+    ],
+    "counts": {
+      "critical": 3,
+      "review": 1,
+      "info": 0
+    },
+    "verdict": "action_needed",
+    "patient": {
+      "age_years": 55,
+      "weight_kg": 70,
+      "sex": "M",
+      "egfr": 90,
+      "creatinine_mg_dl": null
+    },
+    "needs_confirmation": []
+  },
+  "misspell": {
+    "empty": false,
+    "items": [
+      {
+        "line": "Tab Dolo650 TDS",
+        "matched_brand": "Dolo 650 Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "paracetamol",
+            "ingredient_full": "paracetamol",
+            "strength_value": 650.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Paracetamol (650mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 58235,
+        "resolved": true
+      },
+      {
+        "line": "Tab Pantap 40 OD",
+        "matched_brand": "Pantop 40 Tablet",
+        "status": "confident",
+        "ingredients": [
+          {
+            "ingredient": "pantoprazole",
+            "ingredient_full": "pantoprazole",
+            "strength_value": 40.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Pantoprazole (40mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 173581,
+        "resolved": true
+      },
+      {
+        "line": "Tab Xyzabc 1-0-1",
+        "matched_brand": null,
+        "status": "ambiguous",
+        "ingredients": [],
+        "candidates": [
+          {
+            "brand_id": 244292,
+            "name": "Xyzac 5mg Tablet",
+            "score": 72.42
+          }
+        ],
+        "resolved": false,
+        "reason": "ambiguous brand match"
+      }
+    ],
+    "daily_doses": {
+      "by_ingredient": [
+        {
+          "ingredient": "pantoprazole",
+          "total_mg_per_day": 40.0,
+          "unit": "mg",
+          "contributions": [
+            {
+              "brand": "Pantop 40 Tablet",
+              "mg_per_day": 40.0,
+              "assumed_max": false
+            }
+          ]
+        },
+        {
+          "ingredient": "paracetamol",
+          "total_mg_per_day": 1950.0,
+          "unit": "mg",
+          "contributions": [
+            {
+              "brand": "Dolo 650 Tablet",
+              "mg_per_day": 1950.0,
+              "assumed_max": false
+            }
+          ]
+        }
+      ],
+      "strength_unclear": []
+    },
+    "alerts": [
+      {
+        "id": "CONFIRM-0-Xyzabc",
+        "type": "needs_confirmation",
+        "tier": "review",
+        "title": "Confirm brand",
+        "reason": "Brand 'Xyzabc' needs confirmation (ambiguous). Candidates: Xyzac 5mg Tablet.",
+        "suggested_action": "Pick the correct brand from candidates or fix spelling.",
+        "ingredients": [],
+        "brands": [
+          "Xyzac 5mg Tablet"
+        ],
+        "source_rule_id": "NEEDS-CONFIRMATION",
+        "source_label": "needs_confirmation"
+      }
+    ],
+    "counts": {
+      "critical": 0,
+      "review": 1,
+      "info": 0
+    },
+    "verdict": "review",
+    "patient": {
+      "age_years": 35,
+      "weight_kg": 70,
+      "sex": "F",
+      "egfr": 90,
+      "creatinine_mg_dl": null
+    },
+    "needs_confirmation": [
+      {
+        "drug_text": "Xyzabc",
+        "raw": "Tab Xyzabc 1-0-1",
+        "resolve_status": "ambiguous",
+        "candidates": [
+          {
+            "brand_id": 244292,
+            "name": "Xyzac 5mg Tablet",
+            "score": 72.42
+          }
+        ],
+        "reason": "ambiguous brand match"
+      }
+    ]
+  },
+  "kidney-nsaid": {
+    "empty": false,
+    "items": [
+      {
+        "line": "Tab Brufen 400 TDS",
+        "matched_brand": "Brufen 400 Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "ibuprofen",
+            "ingredient_full": "ibuprofen",
+            "strength_value": 400.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Ibuprofen (400mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 25739,
+        "resolved": true
+      }
+    ],
+    "daily_doses": {
+      "by_ingredient": [
+        {
+          "ingredient": "ibuprofen",
+          "total_mg_per_day": 1200.0,
+          "unit": "mg",
+          "contributions": [
+            {
+              "brand": "Brufen 400 Tablet",
+              "mg_per_day": 1200.0,
+              "assumed_max": false
+            }
+          ]
+        }
+      ],
+      "strength_unclear": []
+    },
+    "alerts": [
+      {
+        "id": "DOSE-RENAL-ibuprofen",
+        "type": "dose",
+        "tier": "critical",
+        "title": "Ibuprofen contraindicated for renal band",
+        "reason": "Ibuprofen 1200 mg/day: rule marks severe renal function as avoid. Draft rule, pending pharmacist verification.",
+        "suggested_action": "Do not use this NSAID/agent in severe renal impairment; choose an alternative with clinician advice.",
+        "ingredients": [
+          "ibuprofen"
+        ],
+        "brands": [
+          "Brufen 400 Tablet"
+        ],
+        "source_rule_id": "MAX-002",
+        "source_label": "max_dose:MAX-002"
+      }
+    ],
+    "counts": {
+      "critical": 1,
+      "review": 0,
+      "info": 0
+    },
+    "verdict": "action_needed",
+    "patient": {
+      "age_years": 55,
+      "weight_kg": 70,
+      "sex": "M",
+      "egfr": 20,
+      "creatinine_mg_dl": null
+    },
+    "needs_confirmation": []
+  },
+  "clean": {
+    "empty": false,
+    "items": [
+      {
+        "line": "Tab Pantop 40 OD",
+        "matched_brand": "Pantop 40 Tablet",
+        "status": "exact",
+        "ingredients": [
+          {
+            "ingredient": "pantoprazole",
+            "ingredient_full": "pantoprazole",
+            "strength_value": 40.0,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Pantoprazole (40mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 173581,
+        "resolved": true
+      },
+      {
+        "line": "Tab Amlong 5 OD",
+        "matched_brand": "Amlong 2.5 Tablet",
+        "status": "confident",
+        "ingredients": [
+          {
+            "ingredient": "amlodipine",
+            "ingredient_full": "amlodipine",
+            "strength_value": 2.5,
+            "unit": "mg",
+            "per_value": null,
+            "per_unit": null,
+            "per_unit_missing": false,
+            "strength_missing": false,
+            "raw": "Amlodipine (2.5mg)",
+            "parse_error": false
+          }
+        ],
+        "brand_id": 262,
+        "resolved": true
+      }
+    ],
+    "daily_doses": {
+      "by_ingredient": [
+        {
+          "ingredient": "amlodipine",
+          "total_mg_per_day": 2.5,
+          "unit": "mg",
+          "contributions": [
+            {
+              "brand": "Amlong 2.5 Tablet",
+              "mg_per_day": 2.5,
+              "assumed_max": false
+            }
+          ]
+        },
+        {
+          "ingredient": "pantoprazole",
+          "total_mg_per_day": 40.0,
+          "unit": "mg",
+          "contributions": [
+            {
+              "brand": "Pantop 40 Tablet",
+              "mg_per_day": 40.0,
+              "assumed_max": false
+            }
+          ]
+        }
+      ],
+      "strength_unclear": []
+    },
+    "alerts": [],
+    "counts": {
+      "critical": 0,
+      "review": 0,
+      "info": 0
+    },
+    "verdict": "clear",
+    "patient": {
+      "age_years": 40,
+      "weight_kg": 70,
+      "sex": "M",
+      "egfr": 90,
+      "creatinine_mg_dl": null
+    },
+    "needs_confirmation": []
+  }
+}

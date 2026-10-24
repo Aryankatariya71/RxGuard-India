@@ -1,32 +1,58 @@
-# React + TypeScript + Vite
+# RxGuard India — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Premium Vite + React + TypeScript UI for the deterministic prescription safety engine.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Vite, React 19, TypeScript
+- Tailwind CSS v4
+- framer-motion, recharts (available), lucide-react
 
-## React Compiler
+## Develop
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# from repo root — API + UI together
+../run_demo.sh
 
-## Expanding the Oxlint configuration
+# or frontend only (falls back to bundled mock responses)
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+UI: http://localhost:5173  
+API (proxied as `/api`): http://127.0.0.1:8000
+
+## API contract
+
+`POST /api/analyze` body:
 
 ```json
 {
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  "prescription_text": "Tab Dolo 650 TDS",
+  "patient": {
+    "age_years": 35,
+    "weight_kg": 70,
+    "sex": "M",
+    "egfr": 90,
+    "pregnant": false
   }
 }
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Response fields used: `items`, `daily_doses`, `alerts`, `counts`, `verdict`, `needs_confirmation`.
+
+If the API is unreachable, example scenarios use `src/data/mock_responses.json` (labelled **offline demo data**).
+
+## Scripts
+
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Vite on :5173 with `/api` proxy |
+| `npm run build` | Production build |
+| `npm run preview` | Preview build |
+
+## Notes
+
+- Dark theme default; toggle in navbar.
+- Print/PDF via browser print + print stylesheet.
+- Streamlit `app.py` remains untouched as a fallback.
