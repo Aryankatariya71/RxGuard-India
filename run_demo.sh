@@ -15,12 +15,13 @@ if [[ ! -d venv ]]; then
 fi
 
 echo "Starting API on http://127.0.0.1:8000 …"
-./venv/bin/uvicorn src.api:app --host 127.0.0.1 --port 8000 &
+# HM-02 app serves /api/* (analyze, medicines, stress-test, ingredients, …)
+./venv/bin/uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 &
 API_PID=$!
 
 # Wait for health
 for i in {1..30}; do
-  if curl -sf http://127.0.0.1:8000/health >/dev/null; then
+  if curl -sf http://127.0.0.1:8000/api/health >/dev/null; then
     echo "API ready."
     break
   fi
