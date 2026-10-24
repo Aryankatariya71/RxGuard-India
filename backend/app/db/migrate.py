@@ -8,7 +8,7 @@ from backend.app.db.session import Base, engine
 from backend.app.models import entities  # noqa: F401 — register models
 
 
-SCHEMA_VERSION = "external-sources-v1"
+SCHEMA_VERSION = "ingredient-explorer-v1"
 
 
 def _sqlite_add_column_if_missing(conn, table: str, column: str, ddl: str) -> None:
@@ -57,6 +57,19 @@ def upgrade() -> str:
             _sqlite_add_column_if_missing(conn, "products", "price", "price FLOAT")
             _sqlite_add_column_if_missing(
                 conn, "products", "price_as_of", "price_as_of VARCHAR(32)"
+            )
+            # Fast lookups for hidden-ingredient finder
+            conn.execute(
+                text(
+                    "CREATE INDEX IF NOT EXISTS ix_pi_ingredient_id "
+                    "ON product_ingredients (ingredient_id)"
+                )
+            )
+            conn.execute(
+                text(
+                    "CREATE INDEX IF NOT EXISTS ix_pi_product_id "
+                    "ON product_ingredients (product_id)"
+                )
             )
         except Exception:
             pass

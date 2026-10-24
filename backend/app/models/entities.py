@@ -88,11 +88,19 @@ MedicineProduct = Product
 
 class ProductIngredient(Base):
     __tablename__ = "product_ingredients"
-    __table_args__ = (UniqueConstraint("product_id", "ingredient_id", name="uq_product_ing"),)
+    __table_args__ = (
+        UniqueConstraint("product_id", "ingredient_id", name="uq_product_ing"),
+        Index("ix_pi_ingredient_id", "ingredient_id"),
+        Index("ix_pi_product_id", "product_id"),
+    )
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
-    product_id: Mapped[str] = mapped_column(ForeignKey("products.id"), nullable=False)
-    ingredient_id: Mapped[str] = mapped_column(ForeignKey("ingredients.id"), nullable=False)
+    product_id: Mapped[str] = mapped_column(
+        ForeignKey("products.id"), nullable=False, index=True
+    )
+    ingredient_id: Mapped[str] = mapped_column(
+        ForeignKey("ingredients.id"), nullable=False, index=True
+    )
     strength_value: Mapped[float | None] = mapped_column(Float, nullable=True)
     strength_unit: Mapped[str | None] = mapped_column(String(32), nullable=True)
     per_value: Mapped[float | None] = mapped_column(Float, nullable=True)

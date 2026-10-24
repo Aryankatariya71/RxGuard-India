@@ -8,6 +8,7 @@ from backend.app.api.schemas.dtos import ingredient_to_dict, product_to_dict
 from backend.app.db.session import get_db
 from backend.app.models.entities import Ingredient, Product, ProductIngredient
 from backend.app.services.alternatives import find_alternatives
+from backend.app.services.ingredient_explorer import ingredient_product_report
 from backend.app.services.ingredient_resolution import search_products
 from backend.app.services.search_service import search_medicines
 
@@ -102,11 +103,46 @@ def get_medicine(medicine_id: str, db: Session = Depends(get_db)):
 
 
 @router.get("/ingredients/search")
-def search_ingredients(q: str = "", db: Session = Depends(get_db)):
-    term = f"%{(q or '').strip().lower()}%"
+def search_ingredients(
+    q: str = "",
+    limit: int = Query(30, ge=1, le=50),
+    db: Session = Depends(get_db),
+):
+    raw = (q or "").strip().lower()
+    if not raw:
+        return {"items": [], "query": q}
+    term = f"%{raw}%"
     rows = list(
         db.scalars(
-            select(Ingredient).where(Ingredient.normalized_name.like(term)).limit(30)
+            select(Ingredient)
+            .where(Ingredient.normalized_name.like(term))
+            .order_by(Ingredient.canonical_name)
+            .limit(limit)
         ).all()
     )
-    return {"items": [ingredient_to_dict(r) for r in rows]}
+    return {"items": [ingredient_to_dict(r) for r in rows], "query": q}
+
+
+@router.get("/ingredients/{ingredient_id}/products")
+def ingredient_products(
+    ingredient_id: str,
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=100),
+    dosage_form: str | None = None,
+    q: str | None = None,
+    combination_only: bool | None = None,
+    db: Session = Depends(get_db),
+):
+    """Catalogue products containing an ingredient — counts, partners, paginated brands."""
+    result = ingredient_product_report(
+        db,
+        ingredient_id,
+        page=page,
+        page_size=page_size,
+        dosage_form=dosage_form,
+        q=q,
+        combination_only=combination_only,
+    )
+    if not result.get("found"):
+        raise HTTPException(status_code=404, detail="Ingredient not found")
+    return result
