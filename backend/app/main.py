@@ -9,7 +9,14 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from backend.app.api.routes import analyze_legacy, external, health, medicines, reviews
+from backend.app.api.routes import (
+    analyze_legacy,
+    external,
+    health,
+    medicines,
+    reviews,
+    stress_test,
+)
 from backend.app.core.config import get_settings
 from backend.app.db.session import Base, engine
 from backend.app.models import entities  # noqa: F401 — register models
@@ -64,6 +71,7 @@ app.include_router(analyze_legacy.router, prefix="/api")
 app.include_router(medicines.router, prefix="/api")
 app.include_router(reviews.router, prefix="/api")
 app.include_router(external.router, prefix="/api")
+app.include_router(stress_test.router, prefix="/api")
 
 
 @app.get("/")

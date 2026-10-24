@@ -52,6 +52,9 @@ export function Navbar({ theme, onToggleTheme }: NavbarProps) {
           <NavLink to="/ingredients" className={navCls}>
             Ingredients
           </NavLink>
+          <NavLink to="/stress-test" className={navCls}>
+            Stress test
+          </NavLink>
           <span className="hidden items-center rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-1 text-[11px] font-medium text-amber-600 dark:text-amber-300 lg:inline-flex">
             Decision support only
           </span>
