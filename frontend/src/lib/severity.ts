@@ -15,38 +15,38 @@ export function tierMeta(tier: string): {
     case 'critical':
       return {
         key: 'critical',
-        label: 'Critical',
+        label: 'Urgent Attention',
         icon: ShieldAlert,
-        className: 'text-rose-400',
-        bg: 'bg-rose-500/10',
-        border: 'border-rose-500/30',
+        className: 'text-[#B91C1C]',
+        bg: 'bg-[#FEF2F2]',
+        border: 'border-[#FECACA]',
       }
     case 'review':
       return {
         key: 'review',
-        label: 'Review',
+        label: 'Please Check',
         icon: AlertTriangle,
-        className: 'text-amber-400',
-        bg: 'bg-amber-500/10',
-        border: 'border-amber-500/30',
+        className: 'text-[#B45309]',
+        bg: 'bg-[#FFF7ED]',
+        border: 'border-[#FED7AA]',
       }
     case 'info':
       return {
         key: 'info',
-        label: 'Info',
+        label: 'General Information',
         icon: Info,
-        className: 'text-sky-400',
-        bg: 'bg-sky-500/10',
-        border: 'border-sky-500/30',
+        className: 'text-[#1D4ED8]',
+        bg: 'bg-[#EFF6FF]',
+        border: 'border-[#BFDBFE]',
       }
     default:
       return {
         key: 'clear',
-        label: 'Clear',
+        label: 'Confirmed',
         icon: CheckCircle2,
-        className: 'text-emerald-400',
-        bg: 'bg-emerald-500/10',
-        border: 'border-emerald-500/30',
+        className: 'text-[#15803D]',
+        bg: 'bg-[#F0FDF4]',
+        border: 'border-[#BBF7D0]',
       }
   }
 }

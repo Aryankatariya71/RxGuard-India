@@ -15,12 +15,12 @@ export function AlertList({ alerts, onWhy }: Props) {
 
   return (
     <div className="print-report space-y-4">
-      <TierGroup title="Critical" tier="critical" items={critical} defaultOpen onWhy={onWhy} />
-      <TierGroup title="Review" tier="review" items={review} defaultOpen onWhy={onWhy} />
-      <TierGroup title="Info" tier="info" items={info} defaultOpen={false} onWhy={onWhy} />
+      <TierGroup title="Urgent Attention" tier="critical" items={critical} defaultOpen onWhy={onWhy} />
+      <TierGroup title="Please Check" tier="review" items={review} defaultOpen onWhy={onWhy} />
+      <TierGroup title="General Information" tier="info" items={info} defaultOpen={false} onWhy={onWhy} />
       {alerts.length === 0 && (
-        <p className="rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">
-          No alerts for resolved lines.
+        <p className="rounded-2xl border border-[#BBF7D0] bg-[#F0FDF4] px-4 py-3 text-sm text-[#15803D]">
+          No alerts for resolved lines. This is not a clearance.
         </p>
       )}
     </div>
@@ -46,39 +46,56 @@ function TierGroup({
   if (items.length === 0) return null
 
   return (
-    <div className={`rounded-2xl border ${m.border}`}>
+    <div className={`overflow-hidden rounded-2xl border bg-white ${m.border}`}>
       <button
         type="button"
-        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left"
+        className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left ${m.bg}`}
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
       >
         <span className={`flex items-center gap-2 text-sm font-bold ${m.className}`}>
           <Icon className="h-4 w-4" aria-hidden />
           {title}
-          <span className="rounded-full bg-black/20 px-2 py-0.5 text-xs">{items.length}</span>
+          <span className="rounded-full bg-white/80 px-2 py-0.5 text-xs">{items.length}</span>
         </span>
-        <ChevronDown className={`h-4 w-4 transition ${open ? 'rotate-180' : ''}`} aria-hidden />
+        <ChevronDown className={`h-4 w-4 text-[var(--muted)] transition ${open ? 'rotate-180' : ''}`} aria-hidden />
       </button>
       {open && (
         <ul className="space-y-2 border-t border-[var(--card-border)] p-3">
           {items.map((a) => (
-            <li key={a.id} className="glass rounded-2xl p-4">
+            <li key={a.id} className="rounded-2xl border border-[var(--card-border)] bg-white p-4">
               <div className="flex items-start gap-3">
                 <span className={`mt-0.5 rounded-lg p-1.5 ${m.bg} ${m.className}`}>
                   <Icon className="h-4 w-4" aria-hidden />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="font-semibold leading-snug">{a.title}</p>
-                  <p className="mt-1 text-sm text-[var(--muted)]">{a.reason}</p>
-                  <p className="mt-2 text-sm">
-                    <span className="font-medium text-teal-300">Action: </span>
-                    {a.suggested_action}
-                  </p>
+                  <p className="font-semibold leading-snug text-[var(--heading)]">{a.title}</p>
+                  <div className="mt-3 space-y-2 text-sm">
+                    <p>
+                      <span className="font-semibold text-[var(--heading)]">What we found: </span>
+                      <span className="text-[var(--body)]">{a.reason}</span>
+                    </p>
+                    {a.mechanism && (
+                      <p>
+                        <span className="font-semibold text-[var(--heading)]">Why it matters: </span>
+                        <span className="text-[var(--body)]">{String(a.mechanism)}</span>
+                      </p>
+                    )}
+                    <p>
+                      <span className="font-semibold text-[var(--heading)]">What you should do: </span>
+                      <span className="text-[var(--body)]">{a.suggested_action}</span>
+                    </p>
+                    {(a.source_rule_id || a.source_label) && (
+                      <p className="text-xs text-[var(--muted)]">
+                        Evidence: {a.source_rule_id}
+                        {a.source_label ? ` · ${a.source_label}` : ''}
+                      </p>
+                    )}
+                  </div>
                   <button
                     type="button"
                     onClick={() => onWhy(a)}
-                    className="mt-3 rounded-xl border border-teal-500/30 bg-teal-500/10 px-3 py-1.5 text-xs font-semibold text-teal-200 transition hover:bg-teal-500/20"
+                    className="btn-secondary mt-3 px-3 py-1.5 text-xs"
                   >
                     Why?
                   </button>

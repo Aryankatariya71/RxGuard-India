@@ -47,7 +47,7 @@ export function PriceAlternatives({ item }: Props) {
   if (!item.resolved || !item.matched_brand) return null
   if (loading) {
     return (
-      <div className="mt-3 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-[11px] text-[var(--muted)]">
+      <div className="mt-3 rounded-xl border border-[var(--card-border)] bg-[#F8FBFA] px-3 py-2 text-[11px] text-[var(--muted)]">
         Looking up listed-price options…
       </div>
     )
@@ -56,10 +56,10 @@ export function PriceAlternatives({ item }: Props) {
 
   return (
     <div
-      className="mt-3 rounded-xl border border-teal-500/20 bg-teal-500/5 px-3 py-3"
+      className="mt-3 rounded-xl border border-[#DCE8E4] bg-[#F0FDF4] px-3 py-3"
       data-testid="price-alternatives"
     >
-      <h4 className="text-xs font-bold uppercase tracking-wider text-teal-200/90">
+      <h4 className="text-xs font-bold uppercase tracking-wider text-[#123C38]">
         Lower-priced options with the same composition
       </h4>
       <ul className="mt-2 space-y-2">
@@ -85,7 +85,7 @@ export function PriceAlternatives({ item }: Props) {
                 <span
                   className={
                     a.percent_difference < 0
-                      ? 'ml-1 text-teal-300'
+                      ? 'ml-1 text-[#15803D]'
                       : 'ml-1 text-[var(--muted)]'
                   }
                 >
@@ -97,7 +97,7 @@ export function PriceAlternatives({ item }: Props) {
           </li>
         ))}
       </ul>
-      <p className="mt-2 text-[11px] leading-relaxed text-amber-100/80">
+      <p className="mt-2 text-[11px] leading-relaxed text-[#B45309]">
         {data.caveat}
       </p>
       {data.note && (

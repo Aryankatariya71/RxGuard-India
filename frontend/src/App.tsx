@@ -4,18 +4,17 @@ import { analyzePrescription, checkHealth } from './api/client'
 import type { AnalyzeResponse, PatientFormState } from './api/types'
 import { CheckerPanel } from './components/checker/CheckerPanel'
 import { Hero } from './components/hero/Hero'
-import { Footer } from './components/layout/Footer'
-import { Navbar } from './components/layout/Navbar'
+import { AppLayout } from './components/layout/AppLayout'
 import { ReportPanel } from './components/report/ReportPanel'
 import { AlertFatigue } from './components/sections/AlertFatigue'
+import { Capabilities } from './components/sections/Capabilities'
 import { HowItWorks } from './components/sections/HowItWorks'
 import { Trust } from './components/sections/Trust'
+import { WhyRxGuard } from './components/sections/WhyRxGuard'
 import { EXAMPLES, type ExampleScenario } from './data/examples'
-import { useTheme } from './hooks/useTheme'
 import { defaultActiveKeys, filterPrescriptionText } from './lib/whatIf'
 
 export default function App() {
-  const { theme, toggle } = useTheme()
   const reduce = useReducedMotion()
   const [rx, setRx] = useState(EXAMPLES[0].rx)
   const [patient, setPatient] = useState<PatientFormState>(EXAMPLES[0].patient)
@@ -40,7 +39,7 @@ export default function App() {
     async (text: string, p: PatientFormState, exampleId: string | null) => {
       setLoading(true)
       try {
-        await new Promise((r) => setTimeout(r, reduce ? 0 : 450))
+        await new Promise((r) => setTimeout(r, reduce ? 0 : 350))
         const { data, offline: isOff } = await analyzePrescription(text, p, exampleId)
         setReport(data)
         setOffline(isOff)
@@ -122,21 +121,25 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen">
-      <Navbar theme={theme} onToggleTheme={toggle} />
-      <main>
-        <Hero />
+    <AppLayout title="Prescription checker" subtitle="Every brand. Every ingredient. Every risk.">
+      <Hero />
+      <HowItWorks />
+      <Capabilities />
 
-        <section id="checker" className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+      <section id="checker" className="border-t border-[#DCE8E4] bg-[#F1F7F5] py-12 sm:py-16">
+        <div className="rx-container">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
-            <div>
-              <h2 className="text-3xl font-extrabold tracking-tight">Try the checker</h2>
-              <p className="mt-2 text-[var(--muted)]">
-                Paste a prescription or load a scenario. Every alert cites a rule.
+            <div className="max-w-2xl">
+              <h2 className="text-3xl font-bold tracking-tight text-[#123C38] sm:text-4xl">
+                Prescription checker
+              </h2>
+              <p className="mt-2 text-[#64748B]">
+                Paste a prescription or load a scenario. Every alert cites a rule. This is decision
+                support — not a medical clearance.
               </p>
             </div>
             {apiUp === false && (
-              <span className="rounded-full border border-sky-500/30 bg-sky-500/10 px-3 py-1 text-xs text-sky-300">
+              <span className="rounded-full border border-[#BFDBFE] bg-[#EFF6FF] px-3 py-1 text-xs text-[#1D4ED8]">
                 API offline — using bundled demo data
               </span>
             )}
@@ -144,25 +147,25 @@ export default function App() {
 
           {whatIfActive && (
             <motion.div
-              initial={reduce ? false : { opacity: 0, y: -6 }}
+              initial={reduce ? false : { opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-4 flex flex-wrap items-center gap-2 rounded-2xl border border-violet-500/30 bg-violet-500/10 px-4 py-2 text-sm text-violet-100"
+              className="mb-4 flex flex-wrap items-center gap-2 rounded-2xl border border-[#BFDBFE] bg-[#EFF6FF] px-4 py-2 text-sm text-[#1D4ED8]"
             >
-              <span className="rounded-full bg-violet-500/30 px-2.5 py-0.5 text-xs font-semibold">
-                What-if mode: {whatIf.excludedCount} medicine(s) excluded. This is a
-                simulation, not advice.
+              <span className="rounded-full bg-white px-2.5 py-0.5 text-xs font-semibold">
+                What-if mode: {whatIf.excludedCount} medicine(s) excluded. This is a simulation, not
+                advice.
               </span>
               <button
                 type="button"
                 onClick={resetWhatIf}
-                className="rounded-xl border border-violet-400/40 px-3 py-1 text-xs font-semibold hover:bg-violet-500/20"
+                className="btn-secondary px-3 py-1 text-xs"
               >
                 Reset
               </button>
             </motion.div>
           )}
 
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-6 xl:grid-cols-2">
             <CheckerPanel
               rx={rx}
               patient={patient}
@@ -189,13 +192,12 @@ export default function App() {
               onPickCandidate={onPickCandidate}
             />
           </div>
-        </section>
+        </div>
+      </section>
 
-        <HowItWorks />
-        <AlertFatigue />
-        <Trust />
-      </main>
-      <Footer />
-    </div>
+      <WhyRxGuard />
+      <AlertFatigue />
+      <Trust />
+    </AppLayout>
   )
 }

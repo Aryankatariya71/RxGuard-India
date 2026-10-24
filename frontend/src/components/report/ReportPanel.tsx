@@ -58,12 +58,12 @@ export function ReportPanel({
   }
 
   return (
-    <div className="glass space-y-6 rounded-[1.5rem] p-5 sm:p-6">
+    <div className="rx-card space-y-6 p-5 sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-bold tracking-tight">Safety report</h2>
-        <div className="no-print flex items-center gap-2">
+        <h2 className="text-lg font-semibold tracking-tight text-[#123C38]">Safety report</h2>
+        <div className="no-print flex flex-wrap items-center gap-2">
           {offline && (
-            <span className="rounded-full border border-sky-500/30 bg-sky-500/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-sky-300">
+            <span className="rounded-full border border-[#BFDBFE] bg-[#EFF6FF] px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#1D4ED8]">
               offline demo data
             </span>
           )}
@@ -71,7 +71,7 @@ export function ReportPanel({
             type="button"
             onClick={copyReport}
             disabled={!report}
-            className="glass glass-hover flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium disabled:opacity-40"
+            className="btn-secondary flex items-center gap-1.5 px-3 py-2 text-xs disabled:opacity-40"
           >
             <Copy className="h-3.5 w-3.5" aria-hidden />
             Copy report
@@ -80,7 +80,7 @@ export function ReportPanel({
             type="button"
             onClick={() => window.print()}
             disabled={!report}
-            className="glass glass-hover flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium disabled:opacity-40"
+            className="btn-secondary flex items-center gap-1.5 px-3 py-2 text-xs disabled:opacity-40"
           >
             <Printer className="h-3.5 w-3.5" aria-hidden />
             Print / PDF
@@ -89,7 +89,7 @@ export function ReportPanel({
             type="button"
             onClick={() => setTab('pill')}
             disabled={!report}
-            className="glass glass-hover flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium disabled:opacity-40"
+            className="btn-secondary flex items-center gap-1.5 px-3 py-2 text-xs disabled:opacity-40"
           >
             <IdCard className="h-3.5 w-3.5" aria-hidden />
             Print pill card
@@ -106,37 +106,28 @@ export function ReportPanel({
       )}
 
       {report && (
-        <div className="flex gap-2 border-b border-[var(--card-border)] pb-2">
-          <button
-            type="button"
-            onClick={() => setTab('report')}
-            className={`rounded-xl px-3 py-1.5 text-xs font-semibold ${
-              tab === 'report' ? 'bg-teal-500/20 text-teal-100' : 'text-[var(--muted)]'
-            }`}
-            aria-pressed={tab === 'report'}
-          >
-            Report
-          </button>
-          <button
-            type="button"
-            onClick={() => setTab('risk')}
-            className={`rounded-xl px-3 py-1.5 text-xs font-semibold ${
-              tab === 'risk' ? 'bg-teal-500/20 text-teal-100' : 'text-[var(--muted)]'
-            }`}
-            aria-pressed={tab === 'risk'}
-          >
-            Risk map
-          </button>
-          <button
-            type="button"
-            onClick={() => setTab('pill')}
-            className={`rounded-xl px-3 py-1.5 text-xs font-semibold ${
-              tab === 'pill' ? 'bg-teal-500/20 text-teal-100' : 'text-[var(--muted)]'
-            }`}
-            aria-pressed={tab === 'pill'}
-          >
-            Pill card
-          </button>
+        <div className="flex flex-wrap gap-2 border-b border-[var(--card-border)] pb-2">
+          {(
+            [
+              ['report', 'Report'],
+              ['risk', 'Risk map'],
+              ['pill', 'Pill card'],
+            ] as const
+          ).map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setTab(id)}
+              className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition ${
+                tab === id
+                  ? 'bg-[#ECFDF5] text-[#123C38]'
+                  : 'text-[var(--muted)] hover:bg-[var(--input-bg)]'
+              }`}
+              aria-pressed={tab === id}
+            >
+              {label}
+            </button>
+          ))}
         </div>
       )}
 

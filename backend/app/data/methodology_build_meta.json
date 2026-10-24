@@ -1,0 +1,5 @@
+{
+  "backend_test_function_count": 289,
+  "backend_test_file_count": 20,
+  "generated_note": "Counted from tests/ and backend/tests/ at generation time. Regenerate with: python backend/scripts/generate_methodology_meta.py"
+}

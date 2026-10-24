@@ -28,10 +28,10 @@ export function PillCard({ report, onClose }: Props) {
           Patient pill card
         </h3>
         <div className="flex flex-wrap gap-2">
-          <div className="inline-flex rounded-xl border border-white/10 p-0.5 text-[11px]">
+          <div className="inline-flex rounded-xl border border-[var(--card-border)] bg-white p-0.5 text-[11px]">
             <button
               type="button"
-              className={`rounded-lg px-2 py-1 ${lang === 'en' ? 'bg-teal-500/20 text-teal-200' : 'text-[var(--muted)]'}`}
+              className={`rounded-lg px-2 py-1 ${lang === 'en' ? 'bg-[#ECFDF5] text-[#123C38]' : 'text-[var(--muted)]'}`}
               onClick={() => setLang('en')}
               aria-pressed={lang === 'en'}
             >
@@ -39,7 +39,7 @@ export function PillCard({ report, onClose }: Props) {
             </button>
             <button
               type="button"
-              className={`rounded-lg px-2 py-1 ${lang === 'hi' ? 'bg-teal-500/20 text-teal-200' : 'text-[var(--muted)]'}`}
+              className={`rounded-lg px-2 py-1 ${lang === 'hi' ? 'bg-[#ECFDF5] text-[#123C38]' : 'text-[var(--muted)]'}`}
               onClick={() => setLang('hi')}
               aria-pressed={lang === 'hi'}
             >
@@ -49,7 +49,7 @@ export function PillCard({ report, onClose }: Props) {
           <button
             type="button"
             onClick={printCard}
-            className="rounded-xl border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold"
+            className="btn-secondary px-3 py-1.5 text-xs"
           >
             Print A4
           </button>
@@ -57,7 +57,7 @@ export function PillCard({ report, onClose }: Props) {
             <button
               type="button"
               onClick={onClose}
-              className="rounded-xl border border-white/15 px-3 py-1.5 text-xs"
+              className="btn-secondary px-3 py-1.5 text-xs"
             >
               Close
             </button>
@@ -136,7 +136,7 @@ export function PillCard({ report, onClose }: Props) {
         {data.needsConfirmation.length > 0 && (
           <section className="mt-4">
             <h4 className="text-sm font-bold">Needs confirmation</h4>
-            <ul className="mt-1 space-y-1 text-sm text-amber-800 dark:text-amber-100">
+            <ul className="mt-1 space-y-1 text-sm text-[#B45309]">
               {data.needsConfirmation.map((n) => (
                 <li key={n.line}>
                   {n.line} — {n.reason}

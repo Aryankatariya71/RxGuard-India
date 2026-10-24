@@ -39,7 +39,7 @@ export function DoseTimeline({ report }: Props) {
         <p className="text-xs text-[var(--muted)]">{data.caption}</p>
 
         {data.unclear.length > 0 && (
-          <div className="mt-3 rounded-xl border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-xs text-amber-100">
+          <div className="mt-3 rounded-xl border border-[#FED7AA] bg-[#FFF7ED] px-3 py-2 text-xs text-[#B45309]">
             <p className="font-semibold">Timeline not drawn: schedule unclear</p>
             <ul className="mt-1 list-inside list-disc">
               {data.unclear.map((u) => (
@@ -78,7 +78,7 @@ export function DoseTimeline({ report }: Props) {
                   title={`${d.brand} @ ${d.label}`}
                 >
                   <span
-                    className="flex h-7 w-7 items-center justify-center rounded-full border border-white/20 shadow"
+                    className="flex h-7 w-7 items-center justify-center rounded-full border border-white shadow-sm"
                     style={{ background: timelineColor(d.colorIndex) }}
                   >
                     <Pill className="h-3.5 w-3.5 text-white" aria-hidden />

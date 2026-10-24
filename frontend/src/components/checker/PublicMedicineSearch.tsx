@@ -124,10 +124,10 @@ export function PublicMedicineSearch({ onInsertBrand }: Props) {
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)]/50 p-4">
+    <div className="rounded-2xl border border-[var(--card-border)] bg-[#F8FBFA] p-4">
       <div className="mb-3 flex items-center gap-2">
-        <Database className="h-4 w-4 text-teal-400" aria-hidden />
-        <h3 className="text-sm font-bold">Search public medicine database</h3>
+        <Database className="h-4 w-4 text-[#0D9B78]" aria-hidden />
+        <h3 className="text-sm font-bold text-[var(--heading)]">Search public medicine database</h3>
       </div>
       <p className="mb-3 text-xs text-[var(--muted)]">
         Local catalogue first, then live RxNorm (NLM). RxNorm is US terminology — not a complete
@@ -139,7 +139,7 @@ export function PublicMedicineSearch({ onInsertBrand }: Props) {
         </label>
         <input
           id="public-med-q"
-          className="input flex-1"
+          className="rx-input flex-1 px-3 py-2 text-sm"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && void search()}
@@ -157,7 +157,7 @@ export function PublicMedicineSearch({ onInsertBrand }: Props) {
       </div>
 
       {error && (
-        <p className="mt-3 text-sm text-red-400" role="alert">
+        <p className="mt-3 text-sm text-[#B91C1C]" role="alert">
           {error}
         </p>
       )}
@@ -215,7 +215,7 @@ function ResultGroup({
           return (
             <li
               key={`${h.source_record_id || h.name}-${h.match_type}`}
-              className="rounded-xl border border-[var(--border)] p-3 text-sm"
+              className="rounded-xl border border-[var(--card-border)] bg-white p-3 text-sm"
             >
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div>
@@ -231,10 +231,10 @@ function ResultGroup({
                     Source: {h.source || 'source not recorded'}
                     {h.source_record_id ? ` · id ${h.source_record_id}` : ''}
                   </p>
-                  {h.note && <p className="mt-1 text-[11px] text-amber-300/90">{h.note}</p>}
+                  {h.note && <p className="mt-1 text-[11px] text-[#B45309]">{h.note}</p>}
                 </div>
                 <div className="flex flex-col items-end gap-2">
-                  <span className="rounded-full border border-teal-500/30 bg-teal-500/10 px-2 py-0.5 text-[10px] font-semibold text-teal-300">
+                  <span className="rounded-full border border-[#A7F3D0] bg-[#ECFDF5] px-2 py-0.5 text-[10px] font-semibold text-[#123C38]">
                     {status}
                   </span>
                   <button

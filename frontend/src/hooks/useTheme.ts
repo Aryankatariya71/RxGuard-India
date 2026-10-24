@@ -1,21 +1,17 @@
 import { useEffect, useState } from 'react'
 
+/** Product ships as a light Medcare-style dashboard. Toggle kept for compatibility. */
 type Theme = 'dark' | 'light'
 
 export function useTheme() {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === 'undefined') return 'dark'
-    const saved = localStorage.getItem('rxguard-theme') as Theme | null
-    return saved === 'light' || saved === 'dark' ? saved : 'dark'
-  })
+  const [theme, setTheme] = useState<Theme>('light')
 
   useEffect(() => {
-    const root = document.documentElement
-    root.classList.toggle('dark', theme === 'dark')
-    localStorage.setItem('rxguard-theme', theme)
+    document.documentElement.classList.remove('dark')
+    localStorage.setItem('rxguard-theme', 'light')
   }, [theme])
 
-  const toggle = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
+  const toggle = () => setTheme('light')
 
   return { theme, toggle, setTheme }
 }

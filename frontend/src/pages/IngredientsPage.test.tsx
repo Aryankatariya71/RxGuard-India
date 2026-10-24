@@ -15,7 +15,7 @@ describe('IngredientsPage', () => {
       </MemoryRouter>,
     )
     expect(screen.getByTestId('ingredients-page')).toBeInTheDocument()
-    expect(screen.getByText(/Hidden ingredient finder/i)).toBeInTheDocument()
+    expect(screen.getAllByText(/Hidden ingredient finder/i).length).toBeGreaterThan(0)
     expect(screen.getByLabelText(/Search ingredient/i)).toBeInTheDocument()
   })
 })

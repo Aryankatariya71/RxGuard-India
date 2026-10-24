@@ -1,17 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { ErrorBoundary } from '../components/common/ErrorBoundary'
-import { Footer } from '../components/layout/Footer'
-import { Navbar } from '../components/layout/Navbar'
+import { AppLayout } from '../components/layout/AppLayout'
 import {
   fetchIngredientProducts,
   searchIngredients,
   type IngredientHit,
   type IngredientProductsResponse,
 } from '../api/ingredients'
-import { useTheme } from '../hooks/useTheme'
 
 export function IngredientsPage() {
-  const { theme, toggle } = useTheme()
   const [query, setQuery] = useState('')
   const [suggestions, setSuggestions] = useState<IngredientHit[]>([])
   const [starters, setStarters] = useState<IngredientHit[]>([])
@@ -102,12 +99,13 @@ export function IngredientsPage() {
   }
 
   return (
-    <div className="min-h-screen" data-testid="ingredients-page">
-      <Navbar theme={theme} onToggleTheme={toggle} />
-      <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+    <AppLayout title="Hidden ingredient finder" subtitle="Catalogue brands sharing an ingredient">
+    <div className="rx-container max-w-5xl py-10" data-testid="ingredients-page">
         <ErrorBoundary label="Hidden ingredient finder">
-          <h1 className="text-3xl font-extrabold tracking-tight">Hidden ingredient finder</h1>
-          <p className="mt-2 text-[var(--muted)]">
+          <h1 className="text-3xl font-extrabold tracking-tight text-[#123C38]">
+            Hidden ingredient finder
+          </h1>
+          <p className="mt-2 text-[#64748B]">
             See which catalogue brands share an ingredient — decision support only.
           </p>
 
@@ -124,7 +122,7 @@ export function IngredientsPage() {
               }}
               onKeyDown={onKeyDown}
               placeholder="Type a name, or pick a starter below"
-              className="glass mt-2 w-full rounded-2xl px-4 py-3 text-sm outline-none"
+              className="rx-input mt-2 w-full px-4 py-3 text-sm"
               autoComplete="off"
               role="combobox"
               aria-expanded={suggestions.length > 0}
@@ -134,7 +132,7 @@ export function IngredientsPage() {
               <p className="mt-1 text-xs text-[var(--muted)]">Searching…</p>
             )}
             {noMatch && (
-              <p className="mt-2 text-sm text-amber-200" role="status">
+              <p className="mt-2 text-sm text-[#B45309]" role="status">
                 No ingredients match “{query}”. Try a starter chip below, or seed the A–Z
                 catalogue into the DB.
               </p>
@@ -150,7 +148,7 @@ export function IngredientsPage() {
                     <button
                       type="button"
                       role="option"
-                      className="w-full px-4 py-2.5 text-left text-sm hover:bg-teal-500/10"
+                      className="w-full px-4 py-2.5 text-left text-sm hover:bg-[#ECFDF5]"
                       onClick={() => pick(s)}
                     >
                       {s.canonical_name}
@@ -172,7 +170,7 @@ export function IngredientsPage() {
                     key={s.id}
                     type="button"
                     onClick={() => pick(s)}
-                    className="rounded-full border border-teal-500/30 bg-teal-500/10 px-3 py-1.5 text-xs font-medium text-teal-100 hover:bg-teal-500/20"
+                    className="rounded-full border border-[#DCE8E4] bg-[#ECFDF5] px-3 py-1.5 text-xs font-medium text-[#123C38] hover:bg-[#D1FAE5]"
                   >
                     {s.canonical_name}
                   </button>
@@ -182,7 +180,7 @@ export function IngredientsPage() {
           )}
 
           {error && (
-            <p className="mt-4 text-sm text-amber-200" role="alert">
+            <p className="mt-4 text-sm text-[#B45309]" role="alert">
               {error}
             </p>
           )}
@@ -215,8 +213,8 @@ export function IngredientsPage() {
                         }}
                         className={`rounded-full border px-3 py-1 text-xs ${
                           formFilter === form
-                            ? 'border-teal-400/50 bg-teal-500/20'
-                            : 'border-white/10 bg-white/5'
+                            ? 'border-[#0D9B78] bg-[#ECFDF5]'
+                            : 'border-[var(--card-border)] bg-white'
                         }`}
                       >
                         {form}: {n}
@@ -238,7 +236,7 @@ export function IngredientsPage() {
                       <li key={p.ingredient_id} className="text-sm">
                         <button
                           type="button"
-                          className="text-teal-300 underline-offset-2 hover:underline"
+                          className="text-[#087F6E] underline-offset-2 hover:underline"
                           onClick={() =>
                             pick({
                               id: p.ingredient_id,
@@ -267,12 +265,12 @@ export function IngredientsPage() {
                       setPage(1)
                     }}
                     placeholder="Filter brands…"
-                    className="glass rounded-xl px-3 py-2 text-xs outline-none"
+                    className="rx-input px-3 py-2 text-xs"
                   />
                 </div>
                 <ul className="mt-3 space-y-2">
                   {report.products.map((p) => (
-                    <li key={p.id} className="glass rounded-2xl px-4 py-3 text-sm">
+                    <li key={p.id} className="rx-card px-4 py-3 text-sm">
                       <div className="flex flex-wrap items-baseline justify-between gap-2">
                         <span className="font-semibold">{p.brand_name}</span>
                         <span className="font-mono text-xs text-[var(--muted)]">
@@ -287,7 +285,7 @@ export function IngredientsPage() {
                         {p.manufacturer ? ` · ${p.manufacturer}` : ''}
                       </p>
                       {p.incomplete_flag && (
-                        <p className="mt-1 text-xs text-amber-200">
+                        <p className="mt-1 text-xs text-[#B45309]">
                           composition may be incomplete
                         </p>
                       )}
@@ -300,7 +298,7 @@ export function IngredientsPage() {
                       type="button"
                       disabled={page <= 1}
                       onClick={() => setPage((p) => Math.max(1, p - 1))}
-                      className="rounded-xl border border-white/15 px-3 py-1.5 disabled:opacity-40"
+                      className="btn-secondary px-3 py-1.5 text-sm disabled:opacity-40"
                     >
                       Previous
                     </button>
@@ -311,7 +309,7 @@ export function IngredientsPage() {
                       type="button"
                       disabled={page >= report.total_pages}
                       onClick={() => setPage((p) => p + 1)}
-                      className="rounded-xl border border-white/15 px-3 py-1.5 disabled:opacity-40"
+                      className="btn-secondary px-3 py-1.5 text-sm disabled:opacity-40"
                     >
                       Next
                     </button>
@@ -321,16 +319,15 @@ export function IngredientsPage() {
             </div>
           )}
         </ErrorBoundary>
-      </main>
-      <Footer />
     </div>
+    </AppLayout>
   )
 }
 
 function Stat({ label, value }: { label: string; value: number }) {
   return (
-    <div className="glass rounded-2xl p-4">
-      <p className="text-2xl font-bold tabular-nums">{value}</p>
+    <div className="rx-card p-4">
+      <p className="text-2xl font-bold tabular-nums text-[var(--heading)]">{value}</p>
       <p className="mt-1 text-xs text-[var(--muted)]">{label}</p>
     </div>
   )

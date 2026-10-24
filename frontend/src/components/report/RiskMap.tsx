@@ -73,7 +73,7 @@ export function RiskMap({ report }: Props) {
         ) : (
           <svg
             viewBox={`0 0 ${W} ${H}`}
-            className="mt-3 w-full max-w-full rounded-xl bg-black/20"
+            className="mt-3 w-full max-w-full rounded-xl border border-[var(--card-border)] bg-white"
             role="img"
             aria-label="Ingredient interaction and duplicate risk map"
           >
@@ -166,13 +166,13 @@ export function RiskMap({ report }: Props) {
                   )}
                   <circle
                     r={20}
-                    className="fill-slate-900 stroke-teal-400"
+                    className="fill-[#ECFDF5] stroke-[#0D9B78]"
                     strokeWidth={2.5}
                   />
                   <text
                     textAnchor="middle"
                     y={36}
-                    className="fill-slate-100 text-[11px] font-semibold"
+                    className="fill-[#123C38] text-[11px] font-semibold"
                   >
                     {label}
                   </text>
@@ -180,7 +180,7 @@ export function RiskMap({ report }: Props) {
                     <text
                       textAnchor="middle"
                       y={50}
-                      className="fill-slate-400 text-[9px]"
+                      className="fill-[#7A8B8A] text-[9px]"
                     >
                       {brands.length > 28 ? `${brands.slice(0, 27)}…` : brands}
                     </text>
@@ -203,7 +203,7 @@ export function RiskMap({ report }: Props) {
 
         {selected && (
           <div
-            className="mt-3 rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm"
+            className="mt-3 rounded-xl border border-[var(--card-border)] bg-[var(--input-bg)] px-3 py-2 text-sm"
             role="status"
           >
             <p className="font-semibold">{selected.title}</p>
@@ -259,8 +259,8 @@ export function RiskMap({ report }: Props) {
                     type="button"
                     className={`w-full rounded-xl border px-3 py-2 text-left text-sm transition ${
                       selected?.id === e.id
-                        ? 'border-teal-400/50 bg-teal-500/15'
-                        : 'border-white/10 bg-white/5 hover:bg-white/10'
+                        ? 'border-[#0D9B78] bg-[#ECFDF5]'
+                        : 'border-[var(--card-border)] bg-white hover:bg-[var(--input-bg)]'
                     }`}
                     onClick={() => setSelected(e)}
                   >

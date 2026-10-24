@@ -1,0 +1,5 @@
+{
+  "source_csv_rows": 256489,
+  "cleaned_parquet_rows": 249880,
+  "ddinter_pairs_loaded": 41494
+}

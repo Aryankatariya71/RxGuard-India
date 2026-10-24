@@ -40,16 +40,16 @@ export function MedicinesFound({
             typeof cand0?.score === 'number' ? Math.round(Number(cand0.score)) : undefined
 
           let badge = 'exact'
-          let badgeClass = 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+          let badgeClass = 'border-[#BBF7D0] bg-[#F0FDF4] text-[#15803D]'
           if (status === 'confident') {
             badge = similarity != null ? `fuzzy ${similarity}%` : 'fuzzy'
-            badgeClass = 'bg-sky-500/15 text-sky-300 border-sky-500/30'
+            badgeClass = 'border-[#BFDBFE] bg-[#EFF6FF] text-[#1D4ED8]'
           } else if (status === 'ambiguous') {
             badge = 'ambiguous'
-            badgeClass = 'bg-amber-500/15 text-amber-300 border-amber-500/30'
+            badgeClass = 'border-[#FED7AA] bg-[#FFF7ED] text-[#B45309]'
           } else if (status === 'not_found' || !item.resolved) {
             badge = 'not found'
-            badgeClass = 'bg-rose-500/15 text-rose-300 border-rose-500/30'
+            badgeClass = 'border-[#FECACA] bg-[#FEF2F2] text-[#B91C1C]'
           }
 
           // Map report item back to original rx line for what-if key
@@ -84,7 +84,7 @@ export function MedicinesFound({
                         aria-checked={enabled}
                         checked={enabled}
                         onChange={(e) => onToggleActive(key, e.target.checked)}
-                        className="h-4 w-8 cursor-pointer appearance-none rounded-full bg-slate-600 transition checked:bg-teal-500"
+                        className="h-4 w-8 cursor-pointer appearance-none rounded-full bg-[#CBD5E1] transition checked:bg-[#0D9B78]"
                         style={{
                           backgroundImage: enabled
                             ? 'radial-gradient(circle at 75% 50%, white 40%, transparent 45%)'
@@ -111,7 +111,7 @@ export function MedicinesFound({
                     return (
                       <span
                         key={`${name}-${i}`}
-                        className="rounded-lg border border-indigo-400/20 bg-indigo-500/10 px-2 py-1 font-mono text-[11px] text-indigo-200"
+                        className="rounded-lg border border-[#BFDBFE] bg-[#EFF6FF] px-2 py-1 font-mono text-[11px] text-[#1D4ED8]"
                       >
                         {label}
                       </span>
@@ -122,7 +122,7 @@ export function MedicinesFound({
 
               {needs && (item.candidates || []).length > 0 && (
                 <div className="mt-3">
-                  <p className="mb-2 text-xs font-semibold text-amber-300">
+                  <p className="mb-2 text-xs font-semibold text-[#B45309]">
                     Needs confirmation — pick a candidate
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -133,7 +133,7 @@ export function MedicinesFound({
                         onClick={() =>
                           onPickCandidate(item.line || '', String(c.name || ''))
                         }
-                        className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-medium text-amber-100 transition hover:bg-amber-500/20"
+                        className="rounded-xl border border-[#FED7AA] bg-[#FFF7ED] px-3 py-1.5 text-xs font-medium text-[#B45309] transition hover:bg-[#FFEDD5]"
                       >
                         {c.name}
                         {typeof c.score === 'number'
@@ -145,7 +145,7 @@ export function MedicinesFound({
                 </div>
               )}
               {needs && !(item.candidates || []).length && (
-                <p className="mt-2 text-xs text-rose-300">Needs confirmation — no candidates</p>
+                <p className="mt-2 text-xs text-[#B91C1C]">Needs confirmation — no candidates</p>
               )}
 
               {enabled && item.resolved && (

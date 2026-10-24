@@ -54,7 +54,7 @@ export function ScanPrescription({ onUseText }: Props) {
           type="button"
           onClick={() => fileRef.current?.click()}
           disabled={busy}
-          className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-medium hover:bg-white/10 disabled:opacity-50"
+          className="btn-secondary inline-flex items-center gap-1.5 px-3 py-1.5 text-xs disabled:opacity-50"
         >
           {busy ? (
             <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
@@ -67,7 +67,7 @@ export function ScanPrescription({ onUseText }: Props) {
           type="button"
           disabled={busy}
           onClick={() => runOcr(SAMPLE_URL, SAMPLE_URL)}
-          className="inline-flex items-center gap-1.5 rounded-xl border border-teal-500/30 bg-teal-500/10 px-3 py-1.5 text-xs font-medium text-teal-100 hover:bg-teal-500/20 disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 rounded-xl border border-[#A7F3D0] bg-[#ECFDF5] px-3 py-1.5 text-xs font-medium text-[#123C38] hover:bg-[#D1FAE5] disabled:opacity-50"
         >
           <FileImage className="h-3.5 w-3.5" aria-hidden />
           Try printed sample
@@ -84,18 +84,18 @@ export function ScanPrescription({ onUseText }: Props) {
       <p className="text-[10px] text-[var(--muted)]">
         OCR runs entirely in your browser. Images are never uploaded.
       </p>
-      {error && <p className="text-xs text-amber-200">{error}</p>}
+      {error && <p className="text-xs text-[#B45309]">{error}</p>}
 
       {(open || busy) && (
-        <div className="rounded-2xl border border-amber-500/25 bg-amber-500/5 p-4 space-y-3">
-          <p className="text-xs font-semibold text-amber-100">
+        <div className="space-y-3 rounded-2xl border border-[#FED7AA] bg-[#FFF7ED] p-4">
+          <p className="text-xs font-semibold text-[#B45309]">
             Check carefully: handwriting is often misread
           </p>
           {previewUrl && (
             <img
               src={previewUrl}
               alt="Prescription preview (stays on device)"
-              className="max-h-40 rounded-lg border border-white/10 object-contain"
+              className="max-h-40 rounded-lg border border-[var(--card-border)] object-contain"
             />
           )}
           {busy ? (
@@ -113,14 +113,14 @@ export function ScanPrescription({ onUseText }: Props) {
                 value={extracted}
                 onChange={(e) => setExtracted(e.target.value)}
                 rows={6}
-                className="w-full rounded-xl border border-white/15 bg-black/20 px-3 py-2 font-mono text-sm outline-none"
+                className="rx-input w-full px-3 py-2 font-mono text-sm"
               />
               <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
                   onClick={useText}
                   disabled={!extracted.trim()}
-                  className="rounded-xl bg-teal-500/90 px-4 py-2 text-xs font-bold text-white disabled:opacity-40"
+                  className="btn-primary px-4 py-2 text-xs disabled:opacity-40"
                 >
                   Use this text
                 </button>
@@ -130,7 +130,7 @@ export function ScanPrescription({ onUseText }: Props) {
                     setOpen(false)
                     setExtracted('')
                   }}
-                  className="rounded-xl border border-white/15 px-4 py-2 text-xs"
+                  className="btn-secondary px-4 py-2 text-xs"
                 >
                   Discard
                 </button>

@@ -14,6 +14,7 @@ from backend.app.api.routes import (
     external,
     health,
     medicines,
+    methodology,
     reviews,
     stress_test,
 )
@@ -72,6 +73,7 @@ app.include_router(medicines.router, prefix="/api")
 app.include_router(reviews.router, prefix="/api")
 app.include_router(external.router, prefix="/api")
 app.include_router(stress_test.router, prefix="/api")
+app.include_router(methodology.router, prefix="/api")
 
 
 @app.get("/")

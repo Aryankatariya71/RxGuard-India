@@ -27,7 +27,7 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div
           role="alert"
-          className="rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100"
+          className="rounded-2xl border border-[#FED7AA] bg-[#FFF7ED] px-4 py-3 text-sm text-[#B45309]"
         >
           <p className="font-semibold">
             {this.props.label || 'This panel'} could not be shown.

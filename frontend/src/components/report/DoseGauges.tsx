@@ -77,7 +77,7 @@ export function DoseGauges({ doses, alerts, patientAge, patientWeight }: Props) 
           const pct = limit && limit > 0 ? Math.min(150, (total / limit) * 100) : null
           const over = limit != null && total > limit
           const near = pct != null && pct >= 80 && !over
-          const barColor = over ? 'bg-rose-500' : near ? 'bg-amber-500' : 'bg-teal-500'
+          const barColor = over ? 'bg-[#B91C1C]' : near ? 'bg-[#B45309]' : 'bg-[#0D9B78]'
 
           return (
             <li key={d.ingredient} className="glass rounded-2xl p-4">
@@ -91,7 +91,7 @@ export function DoseGauges({ doses, alerts, patientAge, patientWeight }: Props) 
                 </p>
               </div>
               {formula && (
-                <p className="mt-1 font-mono text-xs text-sky-300">{formula}</p>
+                <p className="mt-1 font-mono text-xs text-[#1D4ED8]">{formula}</p>
               )}
               {limit != null ? (
                 <div className="mt-3">

@@ -51,7 +51,7 @@ export function WhyDrawer({ alert, doses, onClose }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-xl p-2 hover:bg-white/5"
+            className="rounded-xl p-2 hover:bg-[#F1F7F5]"
             aria-label="Close"
           >
             <X className="h-5 w-5" />
@@ -61,7 +61,7 @@ export function WhyDrawer({ alert, doses, onClose }: Props) {
         <dl className="space-y-4 text-sm">
           <div>
             <dt className="text-xs uppercase tracking-wider text-[var(--muted)]">Rule id</dt>
-            <dd className="mt-1 font-mono text-teal-300">{alert.source_rule_id}</dd>
+            <dd className="mt-1 font-mono text-[#123C38]">{alert.source_rule_id}</dd>
           </div>
           <div>
             <dt className="text-xs uppercase tracking-wider text-[var(--muted)]">Source</dt>
@@ -80,8 +80,8 @@ export function WhyDrawer({ alert, doses, onClose }: Props) {
               <dt className="text-xs uppercase tracking-wider text-[var(--muted)]">Numbers used</dt>
               <dd className="mt-1 space-y-2">
                 {doseLines.map((d) => (
-                  <p key={d.ing} className="rounded-xl bg-black/20 p-3 font-mono text-xs leading-relaxed">
-                    <span className="text-teal-300">{d.ing}</span>
+                  <p key={d.ing} className="rounded-xl bg-[#F8FBFA] p-3 font-mono text-xs leading-relaxed">
+                    <span className="text-[#123C38]">{d.ing}</span>
                     <br />
                     {d.sum}
                     {d.limit != null && (
@@ -99,7 +99,7 @@ export function WhyDrawer({ alert, doses, onClose }: Props) {
         </dl>
 
         {isDraft && (
-          <p className="mt-6 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs font-medium text-amber-200">
+          <p className="mt-6 rounded-xl border border-[#FED7AA] bg-[#FFF7ED] px-3 py-2 text-xs font-medium text-[#B45309]">
             DRAFT, pending pharmacist verification
           </p>
         )}

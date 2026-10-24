@@ -11,9 +11,7 @@ import {
   YAxis,
 } from 'recharts'
 import { ErrorBoundary } from '../components/common/ErrorBoundary'
-import { Footer } from '../components/layout/Footer'
-import { Navbar } from '../components/layout/Navbar'
-import { useTheme } from '../hooks/useTheme'
+import { AppLayout } from '../components/layout/AppLayout'
 
 const N_OPTIONS = [100, 500, 1000, 2000] as const
 
@@ -57,7 +55,6 @@ function AnimatedNumber({ value, reduce }: { value: number; reduce: boolean | nu
 }
 
 export function StressTestPage() {
-  const { theme, toggle } = useTheme()
   const reduce = useReducedMotion()
   const [n, setN] = useState<(typeof N_OPTIONS)[number]>(500)
   const [seed, setSeed] = useState<string>('')
@@ -104,17 +101,16 @@ export function StressTestPage() {
   }
 
   return (
-    <div className="min-h-screen" data-testid="stress-test-page">
-      <Navbar theme={theme} onToggleTheme={toggle} />
-      <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+    <AppLayout title="Stress test" subtitle="Synthetic performance demonstration">
+    <div className="rx-container max-w-5xl py-10" data-testid="stress-test-page">
         <ErrorBoundary label="Stress test dashboard">
-          <h1 className="text-3xl font-extrabold tracking-tight">Stress test</h1>
-          <p className="mt-2 text-[var(--muted)]">
+          <h1 className="text-3xl font-extrabold tracking-tight text-[#123C38]">Stress test</h1>
+          <p className="mt-2 text-[#64748B]">
             Run synthetic prescriptions through the rules engines — performance and alert-load
             demo only.
           </p>
 
-          <div className="glass mt-6 space-y-4 rounded-[1.5rem] p-5">
+          <div className="rx-card mt-6 space-y-4 p-5">
             <fieldset>
               <legend className="text-sm font-semibold">Run synthetic prescriptions</legend>
               <div className="mt-2 flex flex-wrap gap-2">
@@ -125,8 +121,8 @@ export function StressTestPage() {
                     onClick={() => setN(opt)}
                     className={`rounded-xl border px-3 py-1.5 text-sm ${
                       n === opt
-                        ? 'border-teal-400/50 bg-teal-500/20'
-                        : 'border-white/10 bg-white/5'
+                        ? 'border-[#0D9B78] bg-[#ECFDF5] text-[#123C38]'
+                        : 'border-[var(--card-border)] bg-[var(--input-bg)]'
                     }`}
                     aria-pressed={n === opt}
                   >
@@ -140,7 +136,7 @@ export function StressTestPage() {
               <input
                 value={seed}
                 onChange={(e) => setSeed(e.target.value)}
-                className="glass mt-1 w-full max-w-xs rounded-xl px-3 py-2 font-mono text-sm outline-none"
+                className="rx-input mt-1 w-full max-w-xs px-3 py-2 font-mono text-sm"
                 placeholder="auto"
               />
             </label>
@@ -148,16 +144,16 @@ export function StressTestPage() {
               type="button"
               onClick={() => void run()}
               disabled={running}
-              className="btn-glow rounded-2xl bg-gradient-to-r from-teal-500 to-indigo-500 px-5 py-3 text-sm font-bold text-white disabled:opacity-50"
+              className="btn-primary px-5 py-3 text-sm disabled:opacity-50"
             >
               {running ? 'Running…' : 'Run'}
             </button>
             {running && (
-              <p className="text-sm text-amber-200" role="status">
+              <p className="text-sm text-[#B45309]" role="status">
                 Progress: generating and evaluating {n} synthetic prescriptions…
               </p>
             )}
-            {error && <p className="text-sm text-rose-300">{error}</p>}
+            {error && <p className="text-sm text-[#B91C1C]">{error}</p>}
           </div>
 
           {result?.ok && (
@@ -199,7 +195,7 @@ export function StressTestPage() {
                 />
               </div>
 
-              <section className="glass rounded-[1.5rem] p-4">
+              <section className="rx-card p-4">
                 <h2 className="text-sm font-bold uppercase tracking-wider text-[var(--muted)]">
                   Alerts per prescription: naive vs RxGuard
                 </h2>
@@ -220,9 +216,8 @@ export function StressTestPage() {
             </div>
           )}
         </ErrorBoundary>
-      </main>
-      <Footer />
     </div>
+    </AppLayout>
   )
 }
 
@@ -238,8 +233,8 @@ function Stat({
   hint?: string
 }) {
   return (
-    <div className="glass rounded-2xl p-4">
-      <p className="text-2xl font-bold">
+    <div className="rx-card p-4">
+      <p className="text-2xl font-bold text-[var(--heading)]">
         <AnimatedNumber value={value} reduce={reduce} />
       </p>
       <p className="mt-1 text-xs text-[var(--muted)]">{label}</p>

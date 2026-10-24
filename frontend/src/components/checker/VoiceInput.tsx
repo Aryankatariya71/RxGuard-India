@@ -114,7 +114,7 @@ export function VoiceInput({ onTranscript, disabled }: Props) {
   if (!Ctor) {
     return (
       <span
-        className="inline-flex items-center gap-1 rounded-xl border border-white/10 px-2 py-1.5 text-[11px] text-[var(--muted)]"
+        className="inline-flex items-center gap-1 rounded-xl border border-[var(--card-border)] px-2 py-1.5 text-[11px] text-[var(--muted)]"
         title="Voice input needs the Web Speech API in a supported browser (Chrome/Edge)."
       >
         <MicOff className="h-3.5 w-3.5" aria-hidden />
@@ -126,7 +126,7 @@ export function VoiceInput({ onTranscript, disabled }: Props) {
   if (!online) {
     return (
       <span
-        className="inline-flex items-center gap-1 rounded-xl border border-white/10 px-2 py-1.5 text-[11px] text-[var(--muted)]"
+        className="inline-flex items-center gap-1 rounded-xl border border-[var(--card-border)] px-2 py-1.5 text-[11px] text-[var(--muted)]"
         title="Voice input needs a network connection for speech recognition."
       >
         <MicOff className="h-3.5 w-3.5" aria-hidden />
@@ -137,10 +137,10 @@ export function VoiceInput({ onTranscript, disabled }: Props) {
 
   return (
     <div className="flex flex-wrap items-center gap-2" data-testid="voice-input">
-      <div className="inline-flex rounded-xl border border-white/10 p-0.5 text-[11px]">
+      <div className="inline-flex rounded-xl border border-[var(--card-border)] bg-white p-0.5 text-[11px]">
         <button
           type="button"
-          className={`rounded-lg px-2 py-1 ${lang === 'en-IN' ? 'bg-teal-500/20 text-teal-200' : 'text-[var(--muted)]'}`}
+          className={`rounded-lg px-2 py-1 ${lang === 'en-IN' ? 'bg-[#ECFDF5] text-[#123C38]' : 'text-[var(--muted)]'}`}
           onClick={() => setLang('en-IN')}
           aria-pressed={lang === 'en-IN'}
         >
@@ -148,7 +148,7 @@ export function VoiceInput({ onTranscript, disabled }: Props) {
         </button>
         <button
           type="button"
-          className={`rounded-lg px-2 py-1 ${lang === 'hi-IN' ? 'bg-teal-500/20 text-teal-200' : 'text-[var(--muted)]'}`}
+          className={`rounded-lg px-2 py-1 ${lang === 'hi-IN' ? 'bg-[#ECFDF5] text-[#123C38]' : 'text-[var(--muted)]'}`}
           onClick={() => setLang('hi-IN')}
           aria-pressed={lang === 'hi-IN'}
         >
@@ -161,8 +161,8 @@ export function VoiceInput({ onTranscript, disabled }: Props) {
         onClick={() => (listening ? stop() : start())}
         className={`inline-flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-medium transition ${
           listening
-            ? 'border-rose-400/40 bg-rose-500/20 text-rose-100'
-            : 'border-white/15 bg-white/5 hover:bg-white/10'
+            ? 'border-[#FECACA] bg-[#FEF2F2] text-[#B91C1C]'
+            : 'border-[#DCE8E4] bg-white text-[#123C38] hover:bg-[#F1F7F5]'
         }`}
         title="Dictate into the prescription box. Confirm the live parse before Analyze — voice never auto-analyzes."
         aria-pressed={listening}
@@ -175,7 +175,7 @@ export function VoiceInput({ onTranscript, disabled }: Props) {
           Heard (confirm below): {lastHeard}
         </p>
       )}
-      {error && <p className="w-full text-[11px] text-amber-200">{error}</p>}
+      {error && <p className="w-full text-[11px] text-[#B45309]">{error}</p>}
       <p className="w-full text-[10px] text-[var(--muted)]">
         Voice fills the box only — review the interpreted frequency, then click Analyze yourself.
       </p>

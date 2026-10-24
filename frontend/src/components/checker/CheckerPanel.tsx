@@ -1,4 +1,4 @@
-import { Loader2, Sparkles } from 'lucide-react'
+import { Loader2, ShieldCheck } from 'lucide-react'
 import type { ExampleScenario } from '../../data/examples'
 import type { PatientFormState } from '../../api/types'
 import { ExampleCards } from './ExampleCards'
@@ -30,11 +30,11 @@ export function CheckerPanel({
   onAnalyze,
 }: Props) {
   return (
-    <div className="glass relative space-y-6 rounded-[1.5rem] p-5 sm:p-6">
+    <div className="rx-card relative space-y-6 p-5 sm:p-6">
       <div className="flex items-center justify-between gap-3">
-        <h2 className="text-lg font-bold tracking-tight">Prescription</h2>
+        <h2 className="text-lg font-semibold tracking-tight text-[#123C38]">Prescription</h2>
         {offline && (
-          <span className="rounded-full border border-sky-500/30 bg-sky-500/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-sky-300">
+          <span className="rounded-full border border-[#BFDBFE] bg-[#EFF6FF] px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#1D4ED8]">
             offline demo data
           </span>
         )}
@@ -53,7 +53,7 @@ export function CheckerPanel({
         type="button"
         onClick={onAnalyze}
         disabled={loading || !rx.trim()}
-        className="btn-glow flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-teal-500 via-teal-400 to-indigo-500 px-5 py-3.5 text-sm font-bold text-white transition disabled:cursor-not-allowed disabled:opacity-50"
+        className="btn-primary flex w-full items-center justify-center gap-2 px-5 py-3.5 text-sm disabled:cursor-not-allowed disabled:opacity-50"
         aria-busy={loading}
       >
         {loading ? (
@@ -63,7 +63,7 @@ export function CheckerPanel({
           </>
         ) : (
           <>
-            <Sparkles className="h-4 w-4" aria-hidden />
+            <ShieldCheck className="h-4 w-4" strokeWidth={2} aria-hidden />
             Analyze prescription
           </>
         )}

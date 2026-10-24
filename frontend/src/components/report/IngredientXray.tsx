@@ -206,7 +206,7 @@ export function IngredientXray({ items, doses }: Props) {
               animate={{ opacity: 1 }}
               transition={{ delay: reduce ? 0 : 0.4 + bi * 0.05 }}
             >
-              <span className="text-[11px] font-semibold text-teal-300">{b.name} →</span>
+              <span className="text-[11px] font-semibold text-[#123C38]">{b.name} →</span>
               {b.chips.map((c) => {
                 const dup = (graph.ingCount[c.ingredient] || 0) >= 2
                 return (
@@ -214,8 +214,8 @@ export function IngredientXray({ items, doses }: Props) {
                     key={c.label}
                     className={`rounded-lg border px-2 py-1 font-mono text-[11px] ${
                       dup
-                        ? 'border-rose-400/40 bg-rose-500/15 text-rose-200'
-                        : 'border-indigo-400/30 bg-indigo-500/10 text-indigo-200'
+                        ? 'border-[#FECACA] bg-[#FEF2F2] text-[#B91C1C]'
+                        : 'border-[#BFDBFE] bg-[#EFF6FF] text-[#1D4ED8]'
                     }`}
                   >
                     {c.label}
