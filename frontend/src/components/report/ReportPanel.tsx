@@ -6,7 +6,7 @@ import { ErrorBoundary } from '../common/ErrorBoundary'
 import { AlertList } from './AlertList'
 import { DoseGauges } from './DoseGauges'
 import { DoseTimeline } from './DoseTimeline'
-import { IngredientFlow } from './IngredientFlow'
+import { IngredientXray } from './IngredientXray'
 import { MedicinesFound } from './MedicinesFound'
 import { PipelineAnimation } from './PipelineAnimation'
 import { VerdictCard } from './VerdictCard'
@@ -113,10 +113,12 @@ export function ReportPanel({
             onToggleActive={onToggleActive}
             onPickCandidate={onPickCandidate}
           />
-          <IngredientFlow
-            items={report.items || []}
-            doses={report.daily_doses?.by_ingredient || []}
-          />
+          <ErrorBoundary label="Ingredient X-ray">
+            <IngredientXray
+              items={report.items || []}
+              doses={report.daily_doses?.by_ingredient || []}
+            />
+          </ErrorBoundary>
           <DoseGauges
             doses={report.daily_doses?.by_ingredient || []}
             alerts={report.alerts || []}
