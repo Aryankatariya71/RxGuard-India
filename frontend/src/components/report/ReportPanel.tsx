@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { Copy, Printer } from 'lucide-react'
+import { Copy, IdCard, Printer } from 'lucide-react'
 import type { Alert, AnalyzeResponse, PatientFormState } from '../../api/types'
 import { ErrorBoundary } from '../common/ErrorBoundary'
 import { AlertList } from './AlertList'
@@ -8,6 +8,7 @@ import { DoseGauges } from './DoseGauges'
 import { DoseTimeline } from './DoseTimeline'
 import { IngredientXray } from './IngredientXray'
 import { MedicinesFound } from './MedicinesFound'
+import { PillCard } from './PillCard'
 import { PipelineAnimation } from './PipelineAnimation'
 import { RiskMap } from './RiskMap'
 import { VerdictCard } from './VerdictCard'
@@ -35,7 +36,7 @@ export function ReportPanel({
   onPickCandidate,
 }: Props) {
   const [why, setWhy] = useState<Alert | null>(null)
-  const [tab, setTab] = useState<'report' | 'risk'>('report')
+  const [tab, setTab] = useState<'report' | 'risk' | 'pill'>('report')
   const reduce = useReducedMotion()
   const animKey = report
     ? `${report.verdict}-${report.counts?.critical}-${report.counts?.review}-${report.items?.length}`
@@ -84,6 +85,15 @@ export function ReportPanel({
             <Printer className="h-3.5 w-3.5" aria-hidden />
             Print / PDF
           </button>
+          <button
+            type="button"
+            onClick={() => setTab('pill')}
+            disabled={!report}
+            className="glass glass-hover flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium disabled:opacity-40"
+          >
+            <IdCard className="h-3.5 w-3.5" aria-hidden />
+            Print pill card
+          </button>
         </div>
       </div>
 
@@ -117,12 +127,28 @@ export function ReportPanel({
           >
             Risk map
           </button>
+          <button
+            type="button"
+            onClick={() => setTab('pill')}
+            className={`rounded-xl px-3 py-1.5 text-xs font-semibold ${
+              tab === 'pill' ? 'bg-teal-500/20 text-teal-100' : 'text-[var(--muted)]'
+            }`}
+            aria-pressed={tab === 'pill'}
+          >
+            Pill card
+          </button>
         </div>
       )}
 
       {report && tab === 'risk' && (
         <ErrorBoundary label="Risk map">
           <RiskMap report={report} />
+        </ErrorBoundary>
+      )}
+
+      {report && tab === 'pill' && (
+        <ErrorBoundary label="Patient pill card">
+          <PillCard report={report} onClose={() => setTab('report')} />
         </ErrorBoundary>
       )}
 

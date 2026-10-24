@@ -126,6 +126,26 @@
   }
 }
 
+.pill-th {
+  @apply border-b border-[var(--card-border)] px-2 py-2 text-xs font-bold uppercase tracking-wide;
+}
+
+.pill-td {
+  @apply border-b border-[var(--card-border)] px-2 py-3 align-top text-sm;
+}
+
+.pill-brand {
+  @apply text-base font-bold sm:text-lg;
+}
+
+.pill-ings {
+  @apply mt-0.5 text-xs text-[var(--muted)];
+}
+
+.pill-dose {
+  @apply text-center text-base font-semibold tabular-nums sm:text-lg;
+}
+
 @media print {
   .no-print {
     display: none !important;
@@ -149,5 +169,48 @@
 
   .print-report {
     break-inside: avoid;
+  }
+
+  /* One A4 page for the patient pill card */
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  .pill-card-root,
+  .pill-card-root * {
+    visibility: visible;
+  }
+
+  .pill-card-root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: white !important;
+    color: black !important;
+  }
+
+  .pill-card-sheet {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .pill-brand {
+    font-size: 14pt !important;
+  }
+
+  .pill-dose {
+    font-size: 13pt !important;
+  }
+
+  .pill-footer {
+    font-size: 9pt !important;
+    color: #333 !important;
   }
 }
