@@ -1,4 +1,6 @@
 import { parsePreview } from '../../lib/parsePreview'
+import { ErrorBoundary } from '../common/ErrorBoundary'
+import { VoiceInput } from './VoiceInput'
 
 interface Props {
   value: string
@@ -9,11 +11,23 @@ export function PrescriptionEditor({ value, onChange }: Props) {
   const lines = value.split('\n')
   const preview = parsePreview(value)
 
+  const appendTranscript = (spoken: string) => {
+    const chunk = spoken.trim()
+    if (!chunk) return
+    const next = value.trim() ? `${value.trim()}\n${chunk}` : chunk
+    onChange(next)
+  }
+
   return (
     <div className="space-y-3">
-      <label htmlFor="rx-input" className="text-sm font-semibold">
-        Prescription
-      </label>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <label htmlFor="rx-input" className="text-sm font-semibold">
+          Prescription
+        </label>
+        <ErrorBoundary label="Voice input">
+          <VoiceInput onTranscript={appendTranscript} />
+        </ErrorBoundary>
+      </div>
       <div className="glass overflow-hidden rounded-2xl">
         <div className="flex border-b border-[var(--card-border)] bg-black/20 px-3 py-2 text-[11px] text-[var(--muted)]">
           <span className="font-mono">rx · one medicine per line</span>
@@ -54,6 +68,19 @@ export function PrescriptionEditor({ value, onChange }: Props) {
                 {p.frequency && (
                   <span className="rounded-full bg-indigo-500/15 px-2 py-0.5 font-mono text-[11px] text-indigo-300">
                     {p.frequency}
+                  </span>
+                )}
+                {p.timing && (
+                  <span className="rounded-full bg-sky-500/15 px-2 py-0.5 font-mono text-[11px] text-sky-300">
+                    {p.timing}
+                  </span>
+                )}
+                {p.interpretedFrequency && (
+                  <span
+                    className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[11px] text-amber-100"
+                    title="Confirm this interpreted frequency before analyzing"
+                  >
+                    Confirm: {p.interpretedFrequency}
                   </span>
                 )}
                 {p.duration && (

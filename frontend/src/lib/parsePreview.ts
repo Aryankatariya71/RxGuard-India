@@ -1,5 +1,10 @@
 /** Lightweight client-side preview — not the Python parser. */
 
+import {
+  findSpokenFrequencyMatches,
+  interpretedFrequencyForLine,
+} from './spokenFrequency'
+
 const FREQ: Record<string, { label: string; perDay: number }> = {
   od: { label: 'OD = 1/day', perDay: 1 },
   bd: { label: 'BD = 2/day', perDay: 2 },
@@ -10,6 +15,8 @@ const FREQ: Record<string, { label: string; perDay: number }> = {
   hs: { label: 'HS = 1/day', perDay: 1 },
   sos: { label: 'SOS (PRN)', perDay: 0 },
   prn: { label: 'PRN', perDay: 0 },
+  ac: { label: 'AC (before food)', perDay: -1 },
+  pc: { label: 'PC (after food)', perDay: -1 },
 }
 
 export interface PreviewLine {
@@ -17,6 +24,9 @@ export interface PreviewLine {
   brandText: string
   frequency?: string
   duration?: string
+  /** Spoken / Hindi phrase interpretation for confirmation. */
+  interpretedFrequency?: string
+  timing?: string
 }
 
 export function parsePreview(text: string): PreviewLine[] {
@@ -27,6 +37,7 @@ export function parsePreview(text: string): PreviewLine[] {
     .map((raw) => {
       const lower = raw.toLowerCase()
       let frequency: string | undefined
+      let timing: string | undefined
       const patternHit = lower.match(/\b(\d(?:-\d){1,3})\b/)
       if (patternHit) {
         const parts = patternHit[1].split('-').map(Number)
@@ -34,12 +45,31 @@ export function parsePreview(text: string): PreviewLine[] {
         frequency = `${patternHit[1]} = ${sum}/day`
       } else {
         for (const [k, v] of Object.entries(FREQ)) {
+          if (v.perDay < 0) continue
           if (new RegExp(`\\b${k}\\b`, 'i').test(lower)) {
             frequency = v.label
             break
           }
         }
       }
+      for (const [k, v] of Object.entries(FREQ)) {
+        if (v.perDay >= 0) continue
+        if (new RegExp(`\\b${k}\\b`, 'i').test(lower)) {
+          timing = v.label
+          break
+        }
+      }
+
+      const spoken = findSpokenFrequencyMatches(raw)
+      const spokenFreq = spoken.find((m) => m.kind === 'frequency')
+      const spokenTiming = spoken.find((m) => m.kind === 'timing')
+      if (!frequency && spokenFreq) frequency = spokenFreq.label
+      if (!timing && spokenTiming) timing = spokenTiming.label
+
+      const interpretedFrequency =
+        interpretedFrequencyForLine(raw) ||
+        (frequency ? `Interpreted: ${frequency}` : undefined)
+
       const dur = lower.match(/\bx\s*(\d+)\s*(day|days|d)\b/)
       const duration = dur ? `${dur[1]} days` : undefined
 
@@ -51,9 +81,15 @@ export function parsePreview(text: string): PreviewLine[] {
         .replace(/\s+/g, ' ')
         .trim()
 
+      // Strip known spoken phrases from brand preview
+      for (const m of spoken) {
+        brandText = brandText.replace(new RegExp(m.phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'ig'), '')
+      }
+      brandText = brandText.replace(/\s+/g, ' ').trim()
+
       if (!brandText) brandText = raw
 
-      return { raw, brandText, frequency, duration }
+      return { raw, brandText, frequency, duration, interpretedFrequency, timing }
     })
 }
 
