@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ing-synth-x",
+    "canonical_name": "Synthetic Ingredient X",
+    "normalized_name": "synthetic ingredient x",
+    "synonyms": "Ingredient X,Synth-X",
+    "status": "DEMO_ILLUSTRATIVE",
+    "source": "Synthetic demo dataset",
+    "dataset_version": "demo-1.0",
+    "is_synthetic": true
+  },
+  {
+    "id": "ing-synth-y",
+    "canonical_name": "Synthetic Ingredient Y",
+    "normalized_name": "synthetic ingredient y",
+    "synonyms": "Ingredient Y,Synth-Y",
+    "status": "DEMO_ILLUSTRATIVE",
+    "source": "Synthetic demo dataset",
+    "dataset_version": "demo-1.0",
+    "is_synthetic": true
+  },
+  {
+    "id": "ing-synth-z",
+    "canonical_name": "Synthetic Ingredient Z",
+    "normalized_name": "synthetic ingredient z",
+    "synonyms": "Ingredient Z,Synth-Z",
+    "status": "DEMO_ILLUSTRATIVE",
+    "source": "Synthetic demo dataset",
+    "dataset_version": "demo-1.0",
+    "is_synthetic": true
+  }
+]

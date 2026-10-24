@@ -1,0 +1,19 @@
+[
+  {
+    "rule_code": "Demo Dose Rule 001",
+    "scope_type": "ingredient",
+    "ingredient_id": "ing-synth-x",
+    "patient_criteria": {"population": "adult"},
+    "dose_criteria": {"requires_frequency": true},
+    "required_fields": ["frequency_structured", "dose_amount", "dose_unit"],
+    "result_type": "unable_to_assess_if_missing",
+    "explanation": "Structural demonstration rule: if frequency is missing, mark dose check as CHECK_NOT_RUN. No real clinical dose limit is asserted.",
+    "source": "Synthetic demo dataset",
+    "version": "demo-1.0",
+    "status": "DEMO_ILLUSTRATIVE",
+    "dose_max": null,
+    "dose_unit": null,
+    "severity": "INFORMATIONAL",
+    "is_synthetic": true
+  }
+]

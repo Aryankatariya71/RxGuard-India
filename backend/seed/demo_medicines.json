@@ -1,0 +1,92 @@
+[
+  {
+    "id": "prod-demo-alpha",
+    "brand_name": "Demo Product Alpha",
+    "normalized_name": "demo product alpha",
+    "manufacturer": "Synthetic Demo Labs",
+    "strength_label": "Synthetic Ingredient X 500 mg",
+    "dosage_form": "tablet",
+    "route": "oral",
+    "identity_status": "VERIFIED_CATALOGUE_MATCH",
+    "source": "Synthetic demo dataset",
+    "source_version": "demo-1.0",
+    "is_synthetic": true,
+    "ingredients": [
+      {
+        "ingredient_id": "ing-synth-x",
+        "strength_value": 500,
+        "strength_unit": "mg",
+        "incomplete_flag": false
+      }
+    ]
+  },
+  {
+    "id": "prod-demo-beta",
+    "brand_name": "Demo Product Beta",
+    "normalized_name": "demo product beta",
+    "manufacturer": "Synthetic Demo Labs",
+    "strength_label": "Synthetic Ingredient X 325 mg",
+    "dosage_form": "tablet",
+    "route": "oral",
+    "identity_status": "VERIFIED_CATALOGUE_MATCH",
+    "source": "Synthetic demo dataset",
+    "source_version": "demo-1.0",
+    "is_synthetic": true,
+    "ingredients": [
+      {
+        "ingredient_id": "ing-synth-x",
+        "strength_value": 325,
+        "strength_unit": "mg",
+        "incomplete_flag": false
+      }
+    ]
+  },
+  {
+    "id": "prod-demo-gamma",
+    "brand_name": "Demo Combo Gamma",
+    "normalized_name": "demo combo gamma",
+    "manufacturer": "Synthetic Demo Labs",
+    "strength_label": "Synthetic Ingredient X 250 mg + Synthetic Ingredient Y 125 mg",
+    "dosage_form": "tablet",
+    "route": "oral",
+    "identity_status": "VERIFIED_CATALOGUE_MATCH",
+    "source": "Synthetic demo dataset",
+    "source_version": "demo-1.0",
+    "is_synthetic": true,
+    "ingredients": [
+      {
+        "ingredient_id": "ing-synth-x",
+        "strength_value": 250,
+        "strength_unit": "mg",
+        "incomplete_flag": false
+      },
+      {
+        "ingredient_id": "ing-synth-y",
+        "strength_value": 125,
+        "strength_unit": "mg",
+        "incomplete_flag": false
+      }
+    ]
+  },
+  {
+    "id": "prod-demo-delta",
+    "brand_name": "Demo Product Delta",
+    "normalized_name": "demo product delta",
+    "manufacturer": "Synthetic Demo Labs",
+    "strength_label": "Synthetic Ingredient Z 75 mg",
+    "dosage_form": "tablet",
+    "route": "oral",
+    "identity_status": "VERIFIED_CATALOGUE_MATCH",
+    "source": "Synthetic demo dataset",
+    "source_version": "demo-1.0",
+    "is_synthetic": true,
+    "ingredients": [
+      {
+        "ingredient_id": "ing-synth-z",
+        "strength_value": 75,
+        "strength_unit": "mg",
+        "incomplete_flag": false
+      }
+    ]
+  }
+]

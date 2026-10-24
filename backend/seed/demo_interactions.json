@@ -1,0 +1,17 @@
+[
+  {
+    "rule_code": "Demo Interaction Rule 001",
+    "ingredient_a_id": "ing-synth-y",
+    "ingredient_b_id": "ing-synth-z",
+    "category": "drug_drug",
+    "severity": "HIGH",
+    "description": "Synthetic demonstration interaction between Ingredient Y and Ingredient Z for UI and engine testing. Not derived from clinical literature.",
+    "action": "Demonstration only — consult a qualified clinician; do not change therapy based on this finding.",
+    "evidence_source": "Synthetic demo dataset",
+    "evidence_reference": "demo-1.0",
+    "version": "demo-1.0",
+    "status": "DEMO_ILLUSTRATIVE",
+    "reviewed_at": null,
+    "is_synthetic": true
+  }
+]
