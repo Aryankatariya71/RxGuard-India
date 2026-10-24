@@ -1,5 +1,6 @@
 import { parsePreview } from '../../lib/parsePreview'
 import { ErrorBoundary } from '../common/ErrorBoundary'
+import { ScanPrescription } from './ScanPrescription'
 import { VoiceInput } from './VoiceInput'
 
 interface Props {
@@ -28,6 +29,13 @@ export function PrescriptionEditor({ value, onChange }: Props) {
           <VoiceInput onTranscript={appendTranscript} />
         </ErrorBoundary>
       </div>
+      <ErrorBoundary label="Prescription scan">
+        <ScanPrescription
+          onUseText={(text) => {
+            onChange(value.trim() ? `${value.trim()}\n${text}` : text)
+          }}
+        />
+      </ErrorBoundary>
       <div className="glass overflow-hidden rounded-2xl">
         <div className="flex border-b border-[var(--card-border)] bg-black/20 px-3 py-2 text-[11px] text-[var(--muted)]">
           <span className="font-mono">rx · one medicine per line</span>

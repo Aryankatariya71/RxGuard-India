@@ -34,7 +34,7 @@ def test_seed_demo_idempotent(tmp_path):
     try:
         first = seed_demo(db)
         assert first["ingredients"] == 3
-        assert first["products"] == 4
+        assert first["products"] == 8  # includes same-composition price demo variants
         assert first["interactions"] == 1
         assert first["dose_rules"] == 1
 
@@ -48,15 +48,18 @@ def test_seed_demo_idempotent(tmp_path):
         }
 
         assert db.scalar(select(func.count()).select_from(Ingredient)) == 3
-        assert db.scalar(select(func.count()).select_from(Product)) == 4
+        assert db.scalar(select(func.count()).select_from(Product)) == 8
         assert db.scalar(select(func.count()).select_from(InteractionRule)) == 1
         assert db.scalar(select(func.count()).select_from(DoseRule)) == 1
 
         alpha = db.get(Product, "prod-demo-alpha")
         assert alpha is not None and alpha.is_synthetic is True
+        assert alpha.price == 100.0
         gamma = db.get(Product, "prod-demo-gamma")
         assert gamma is not None
         assert len(list(gamma.ingredients)) == 2
+        disc = db.get(Product, "prod-demo-alpha-disc")
+        assert disc is not None and disc.is_discontinued is True
 
         rule = db.scalars(
             select(InteractionRule).where(
