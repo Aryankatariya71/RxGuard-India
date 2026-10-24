@@ -200,7 +200,7 @@
   {
     "id": "MAX-012",
     "ingredient": "pantoprazole",
-    "adult_max_mg_day": 40,
+    "adult_max_mg_day": 80,
     "pediatric_mg_per_kg_day": null,
     "min_age_years": null,
     "renal_adjustment": {
@@ -213,12 +213,12 @@
     "source_url": "https://www.fda.gov/drugs",
     "verified_by_pharmacist": false,
     "status": "DRAFT",
-    "notes": "Usual GERD dose 40 mg/day; higher specialty doses exist. Using 40 as conservative DRAFT ceiling for demo."
+    "notes": "Usual GERD dose 40 mg/day; labeled regimens up to 80 mg/day in some indications. DRAFT ceiling 80."
   },
   {
     "id": "MAX-013",
     "ingredient": "omeprazole",
-    "adult_max_mg_day": 40,
+    "adult_max_mg_day": 80,
     "pediatric_mg_per_kg_day": null,
     "min_age_years": null,
     "renal_adjustment": {
@@ -231,7 +231,7 @@
     "source_url": "https://www.fda.gov/drugs",
     "verified_by_pharmacist": false,
     "status": "DRAFT",
-    "notes": "Common adult doses 20–40 mg/day; higher for some indications. Conservative DRAFT 40."
+    "notes": "Common adult doses 20–40 mg/day; higher for some indications. DRAFT ceiling 80."
   },
   {
     "id": "MAX-014",

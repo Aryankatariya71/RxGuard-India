@@ -8,9 +8,9 @@ import pandas as pd
 import streamlit as st
 
 import ui_style as ui
-from src.daily_dose import daily_dose_by_ingredient, resolve_prescription
 from src.patient import Patient
-from src.rx_parser import parse_prescription
+from src.pipeline import analyze as pipeline_analyze
+from src.rules import get_max_dose
 
 st.set_page_config(
     page_title="RxGuard India",
@@ -99,7 +99,7 @@ def _ingredient_chips(ingredients: list[dict]) -> list[str]:
 
 @st.cache_resource(show_spinner=False)
 def warm_caches() -> str:
-    """Preload brand index / DDInter / dose rules so Analyze stays snappy."""
+    """Preload brand index / rules so Analyze stays snappy."""
     try:
         from src.resolver import resolve
 
@@ -107,18 +107,27 @@ def warm_caches() -> str:
     except Exception:
         pass
     try:
-        from src.quick_interactions import major_pair_count
+        from src.rules import load_ddinter_pairs, load_max_dose
 
-        major_pair_count()
-    except Exception:
-        pass
-    try:
-        from src.quick_dose import load_max_dose_rules
-
-        load_max_dose_rules()
+        load_max_dose()
+        load_ddinter_pairs()
     except Exception:
         pass
     return "ready"
+
+
+def _ui_alert(a: dict) -> dict[str, Any]:
+    """Map pipeline alert dict to the existing UI card fields."""
+    tier = a.get("tier") or "info"
+    icon = {"critical": "⚠", "review": "◎", "info": "ℹ"}.get(tier, "•")
+    return {
+        "tier": tier,
+        "icon": icon,
+        "title": a.get("title") or "Alert",
+        "reason": a.get("reason") or "",
+        "action": a.get("suggested_action") or "",
+        "rule": a.get("source_label") or a.get("source_rule_id") or "rule",
+    }
 
 
 def _load_example(label: str) -> None:
@@ -130,110 +139,9 @@ def _load_example(label: str) -> None:
     st.session_state.pop("analysis", None)
 
 
-def _collect_alerts(
-    *,
-    dose: dict,
-    patient: Patient,
-    resolved: list[dict],
-) -> list[dict[str, Any]]:
-    """Build unified alert cards from existing rule outputs (presentation only)."""
-    alerts: list[dict[str, Any]] = []
-    by_ing = dose.get("by_ingredient") or []
-
-    # Duplicates
-    for row in by_ing:
-        brands = list(dict.fromkeys(c["brand"] for c in (row.get("contributions") or [])))
-        if len(brands) >= 2:
-            total_txt = ui.fmt_qty(row["total_mg_per_day"], row["unit"])
-            brand_list = " and ".join(brands)
-            alerts.append(
-                {
-                    "tier": "critical",
-                    "icon": "⚠",
-                    "title": f"Duplicate ingredient: {row['ingredient'].title()}",
-                    "reason": (
-                        f"{row['ingredient'].title()} is in {brand_list}. "
-                        f"Combined total: {total_txt}/day."
-                    ),
-                    "action": "Confirm whether both brands are intentional; avoid stacking the same API.",
-                    "rule": "Duplicate ingredient across brands",
-                }
-            )
-
-    # Draft dose limits
-    try:
-        from src.quick_dose import check_doses
-
-        for a in check_doses(dose, patient):
-            tier = a.get("tier") or "info"
-            title = {
-                "critical": f"Dose limit exceeded: {(a.get('ingredient') or 'ingredient').title()}",
-                "review": f"Dose near limit: {(a.get('ingredient') or 'ingredient').title()}",
-                "info": "Pediatric dose check",
-            }.get(tier, "Dose check")
-            alerts.append(
-                {
-                    "tier": tier,
-                    "icon": "⬆" if tier == "critical" else ("◎" if tier == "review" else "ℹ"),
-                    "title": title,
-                    "reason": a.get("reason") or "",
-                    "action": "Confirm with prescriber. Draft rule, pending pharmacist verification.",
-                    "rule": "Commonly cited label limit, DRAFT",
-                }
-            )
-    except Exception:
-        pass
-
-    # Unclear strengths
-    for u in dose.get("strength_unclear") or []:
-        alerts.append(
-            {
-                "tier": "review",
-                "icon": "?",
-                "title": "Strength unclear, check label",
-                "reason": (
-                    f"{u.get('ingredient')} in {u.get('brand')} "
-                    f"({u.get('reason')})."
-                ),
-                "action": "Read the pack label before calculating liquid dose.",
-                "rule": "per_unit_missing / strength basis unknown",
-            }
-        )
-
-    # DDInter Major
-    try:
-        from src.quick_interactions import check_major_interactions
-
-        names: list[str] = []
-        for item in resolved:
-            for ing in item.get("ingredients") or []:
-                if ing.get("ingredient"):
-                    names.append(ing["ingredient"])
-        for hit in check_major_interactions(names):
-            a = str(hit["ing_a"]).title()
-            b = str(hit["ing_b"]).title()
-            alerts.append(
-                {
-                    "tier": "critical",
-                    "icon": "⚠",
-                    "title": f"Major interaction: {a} + {b}",
-                    "reason": f"{a} + {b}: Major interaction per DDInter 2.0.",
-                    "action": "Review with prescriber before dispensing.",
-                    "rule": "DDInter 2.0 (academic use)",
-                }
-            )
-    except Exception:
-        pass
-
-    return alerts
-
-
 def _limit_for_ingredient(name: str, patient: Patient) -> float | None:
     try:
-        from src.quick_dose import load_max_dose_rules
-
-        rules = load_max_dose_rules()
-        rule = rules.get(str(name).lower())
+        rule = get_max_dose(name)
         if not rule:
             return None
         if float(patient.age_years) < 18:
@@ -248,21 +156,21 @@ def _limit_for_ingredient(name: str, patient: Patient) -> float | None:
 
 
 def analyze(rx_text: str, age: float, weight: float | None, sex: str | None) -> dict:
-    """Run the same clinical pipeline; return a result blob for the UI."""
-    items = parse_prescription(rx_text)
-    if not items:
-        return {"empty": True}
-
+    """Run pipeline.analyze; adapt the report for the existing UI."""
     patient = Patient(
         age_years=float(age),
         weight_kg=float(weight) if weight not in (None, "") else None,
         sex=sex if sex in {"M", "F"} else None,
     )
-    result = resolve_prescription(items)
-    resolved = result["resolved"]
-    needs = result["needs_confirmation"]
-    dose = daily_dose_by_ingredient(resolved, patient)
-    alerts = _collect_alerts(dose=dose, patient=patient, resolved=resolved)
+    report = pipeline_analyze(rx_text, patient)
+    if report.get("empty"):
+        return {"empty": True}
+
+    resolved = report.get("resolved") or []
+    needs = report.get("needs_confirmation") or []
+    dose = report.get("daily_doses") or {}
+    ui_alerts = [_ui_alert(a) for a in (report.get("alerts") or [])]
+    counts = report.get("counts") or {}
 
     ingredient_names = sorted(
         {
@@ -275,7 +183,8 @@ def analyze(rx_text: str, age: float, weight: float | None, sex: str | None) -> 
 
     return {
         "empty": False,
-        "patient": {
+        "patient": report.get("patient")
+        or {
             "age_years": patient.age_years,
             "weight_kg": patient.weight_kg,
             "sex": patient.sex,
@@ -285,12 +194,13 @@ def analyze(rx_text: str, age: float, weight: float | None, sex: str | None) -> 
         "resolved": resolved,
         "needs": needs,
         "dose": dose,
-        "alerts": alerts,
+        "alerts": ui_alerts,
         "ingredient_names": ingredient_names,
         "medicines_count": len(resolved) + len(needs),
         "ingredients_count": len(ingredient_names),
-        "critical_count": sum(1 for a in alerts if a["tier"] == "critical"),
-        "review_count": sum(1 for a in alerts if a["tier"] == "review"),
+        "critical_count": int(counts.get("critical") or 0),
+        "review_count": int(counts.get("review") or 0),
+        "verdict": report.get("verdict"),
     }
 
 

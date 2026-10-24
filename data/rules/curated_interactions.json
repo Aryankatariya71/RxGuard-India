@@ -212,7 +212,7 @@
     "id": "CUR-INT-020",
     "ingredient_a": "aspirin",
     "ingredient_b": "ibuprofen",
-    "tier": "review",
+    "tier": "critical",
     "mechanism": "Ibuprofen may interfere with aspirin's antiplatelet effect and increase GI bleeding risk.",
     "recommended_action": "If both needed, separate dosing per clinician advice; watch for GI symptoms.",
     "source_url": "https://www.fda.gov/drugs",
