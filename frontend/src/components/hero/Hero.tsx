@@ -1,15 +1,45 @@
+import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowDown, Database, Lock, Sparkles } from 'lucide-react'
 import { FloatingVisual } from './FloatingVisual'
 
-const STATS = [
-  { icon: Database, label: '2.5 lakh brands' },
-  { icon: Lock, label: 'Explainable rules, no black box' },
-  { icon: Sparkles, label: 'Works offline' },
-]
+type Stats = {
+  total_products: number
+  synthetic_products: number
+  source_backed_products: number
+  india_catalogue_products: number
+  rxnorm_products: number
+}
 
 export function Hero() {
   const reduce = useReducedMotion()
+  const [stats, setStats] = useState<Stats | null>(null)
+
+  useEffect(() => {
+    fetch('/api/catalogue/stats', { signal: AbortSignal.timeout(5000) })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => d && setStats(d))
+      .catch(() => setStats(null))
+  }, [])
+
+  const chips = [
+    {
+      icon: Database,
+      label: stats
+        ? `${stats.total_products.toLocaleString()} products in local DB`
+        : 'Catalogue stats loading…',
+    },
+    {
+      icon: Lock,
+      label: 'Explainable rules, no black box',
+    },
+    {
+      icon: Sparkles,
+      label: stats
+        ? `${stats.source_backed_products} source-backed · ${stats.synthetic_products} demo`
+        : 'Demo rules labeled DEMO_ONLY',
+    },
+  ]
 
   return (
     <section id="top" className="relative overflow-hidden">
@@ -51,7 +81,7 @@ export function Hero() {
             transition={{ delay: 0.18 }}
             className="mt-8 flex flex-wrap gap-2"
           >
-            {STATS.map(({ icon: Icon, label }, idx) => (
+            {chips.map(({ icon: Icon, label }, idx) => (
               <motion.div
                 key={label}
                 initial={reduce ? false : { opacity: 0, y: 10 }}

@@ -87,6 +87,8 @@ def seed_demo(db: Session) -> dict[str, int]:
                 identity_status=row.get("identity_status", "VERIFIED_CATALOGUE_MATCH"),
                 source=row.get("source"),
                 source_version=row.get("source_version", "demo-1.0"),
+                verification_status="DEMO_ONLY",
+                geographic_applicability="DEMO",
                 is_synthetic=True,
             )
         )
@@ -234,6 +236,8 @@ def seed_catalogue(db: Session, *, limit: int | None = None) -> dict[str, int]:
                 identity_status="VERIFIED_CATALOGUE_MATCH",
                 source=CATALOGUE_SOURCE_LABEL,
                 source_version="brands_clean.parquet",
+                verification_status="PARTIALLY_VERIFIED",
+                geographic_applicability="INDIA_CATALOGUE",
                 is_discontinued=(
                     bool(row.get("is_discontinued"))
                     if pd.notna(row.get("is_discontinued"))

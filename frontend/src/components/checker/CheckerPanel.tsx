@@ -4,6 +4,7 @@ import type { PatientFormState } from '../../api/types'
 import { ExampleCards } from './ExampleCards'
 import { PatientPanel } from './PatientPanel'
 import { PrescriptionEditor } from './PrescriptionEditor'
+import { PublicMedicineSearch } from './PublicMedicineSearch'
 
 interface Props {
   rx: string
@@ -40,6 +41,12 @@ export function CheckerPanel({
       </div>
 
       <PrescriptionEditor value={rx} onChange={onRxChange} />
+      <PublicMedicineSearch
+        onInsertBrand={(brand) => {
+          const line = `Tab ${brand}`
+          onRxChange(rx.trim() ? `${rx.trim()}\n${line}` : line)
+        }}
+      />
       <PatientPanel patient={patient} onChange={onPatientChange} />
 
       <button

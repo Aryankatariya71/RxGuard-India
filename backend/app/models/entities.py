@@ -62,6 +62,15 @@ class Product(Base):
     source: Mapped[str | None] = mapped_column(String(512), nullable=True)
     source_date: Mapped[str | None] = mapped_column(String(32), nullable=True)
     source_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    source_record_id: Mapped[str | None] = mapped_column(String(128), nullable=True, index=True)
+    source_url: Mapped[str | None] = mapped_column(String(512), nullable=True)
+    retrieved_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    verification_status: Mapped[str] = mapped_column(
+        String(64), default="UNRESOLVED"
+    )  # SOURCE_BACKED | PARTIALLY_VERIFIED | DEMO_ONLY | UNRESOLVED
+    geographic_applicability: Mapped[str | None] = mapped_column(
+        String(64), nullable=True
+    )  # e.g. US_RXNORM | INDIA_CATALOGUE | DEMO
     is_discontinued: Mapped[bool] = mapped_column(Boolean, default=False)
     is_synthetic: Mapped[bool] = mapped_column(Boolean, default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)

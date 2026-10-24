@@ -219,7 +219,7 @@ export function NewReview() {
           <div className="flex gap-2">
             <input
               className="input"
-              placeholder="Search DEMO brands or ingredients"
+              placeholder="Search local catalogue (demo or imported)"
               value={q}
               onChange={(e) => setQ(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && search()}

@@ -9,9 +9,10 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from backend.app.api.routes import health, medicines, reviews
+from backend.app.api.routes import analyze_legacy, external, health, medicines, reviews
 from backend.app.core.config import get_settings
 from backend.app.db.session import Base, engine
+from backend.app.models import entities  # noqa: F401 — register models
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message)s")
 logger = logging.getLogger("rxguard")
@@ -19,8 +20,10 @@ logger = logging.getLogger("rxguard")
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
-    Base.metadata.create_all(bind=engine)
-    logger.info("Database tables ensured")
+    from backend.app.db.migrate import upgrade
+
+    upgrade()
+    logger.info("Database schema ensured")
     yield
 
 
@@ -57,8 +60,10 @@ async def unhandled(request: Request, exc: Exception):
 
 
 app.include_router(health.router, prefix="/api")
+app.include_router(analyze_legacy.router, prefix="/api")
 app.include_router(medicines.router, prefix="/api")
 app.include_router(reviews.router, prefix="/api")
+app.include_router(external.router, prefix="/api")
 
 
 @app.get("/")

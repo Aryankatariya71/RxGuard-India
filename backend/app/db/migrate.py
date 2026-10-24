@@ -8,7 +8,14 @@ from backend.app.db.session import Base, engine
 from backend.app.models import entities  # noqa: F401 — register models
 
 
-SCHEMA_VERSION = "stage1-v1"
+SCHEMA_VERSION = "external-sources-v1"
+
+
+def _sqlite_add_column_if_missing(conn, table: str, column: str, ddl: str) -> None:
+    rows = conn.execute(text(f"PRAGMA table_info({table})")).fetchall()
+    names = {r[1] for r in rows}
+    if column not in names:
+        conn.execute(text(f"ALTER TABLE {table} ADD COLUMN {ddl}"))
 
 
 def upgrade() -> str:
@@ -24,6 +31,32 @@ def upgrade() -> str:
                 """
             )
         )
+        # Additive columns for existing SQLite DBs (Stage external-sources)
+        try:
+            _sqlite_add_column_if_missing(
+                conn, "products", "source_record_id", "source_record_id VARCHAR(128)"
+            )
+            _sqlite_add_column_if_missing(
+                conn, "products", "source_url", "source_url VARCHAR(512)"
+            )
+            _sqlite_add_column_if_missing(
+                conn, "products", "retrieved_at", "retrieved_at TIMESTAMP"
+            )
+            _sqlite_add_column_if_missing(
+                conn,
+                "products",
+                "verification_status",
+                "verification_status VARCHAR(64) DEFAULT 'UNRESOLVED'",
+            )
+            _sqlite_add_column_if_missing(
+                conn,
+                "products",
+                "geographic_applicability",
+                "geographic_applicability VARCHAR(64)",
+            )
+        except Exception:
+            pass
+
         exists = conn.execute(
             text("SELECT 1 FROM schema_migrations WHERE version = :v"),
             {"v": SCHEMA_VERSION},
