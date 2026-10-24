@@ -59,6 +59,12 @@ def analyze(prescription_text: str, patient: Patient) -> dict[str, Any]:
                 "ingredients": r.get("ingredients") or [],
                 "brand_id": r.get("brand_id"),
                 "resolved": True,
+                # Additive schedule fields for timeline / what-if UI (illustrative)
+                "frequency_code": r.get("frequency_code"),
+                "times_per_day": r.get("times_per_day"),
+                "prn": bool(r.get("prn")),
+                "dose_amount": r.get("dose_amount"),
+                "dose_unit": r.get("dose_unit"),
             }
         )
     for n in needs_confirmation:

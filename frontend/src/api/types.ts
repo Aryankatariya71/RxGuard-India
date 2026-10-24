@@ -44,6 +44,11 @@ export interface LineItem {
   resolved?: boolean
   candidates?: Candidate[]
   reason?: string
+  frequency_code?: string | null
+  times_per_day?: number | null
+  prn?: boolean
+  dose_amount?: number | null
+  dose_unit?: string | null
 }
 
 export interface DoseContribution {

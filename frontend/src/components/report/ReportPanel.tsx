@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { Copy, Printer } from 'lucide-react'
 import type { Alert, AnalyzeResponse, PatientFormState } from '../../api/types'
+import { ErrorBoundary } from '../common/ErrorBoundary'
 import { AlertList } from './AlertList'
 import { DoseGauges } from './DoseGauges'
+import { DoseTimeline } from './DoseTimeline'
 import { IngredientFlow } from './IngredientFlow'
 import { MedicinesFound } from './MedicinesFound'
 import { PipelineAnimation } from './PipelineAnimation'
@@ -83,6 +85,9 @@ export function ReportPanel({
         <>
           <VerdictCard report={report} />
           <AlertList alerts={report.alerts || []} onWhy={setWhy} />
+          <ErrorBoundary label="Your day timeline">
+            <DoseTimeline report={report} />
+          </ErrorBoundary>
           <MedicinesFound
             items={report.items || []}
             onPickCandidate={onPickCandidate}
