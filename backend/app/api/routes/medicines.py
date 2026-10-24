@@ -8,8 +8,19 @@ from backend.app.api.schemas.dtos import ingredient_to_dict, product_to_dict
 from backend.app.db.session import get_db
 from backend.app.models.entities import Ingredient, Product, ProductIngredient
 from backend.app.services.ingredient_resolution import search_products
+from backend.app.services.search_service import search_medicines
 
 router = APIRouter(tags=["medicines"])
+
+
+@router.get("/medicines/search")
+def medicines_search(
+    q: str = Query(..., min_length=1, description="Brand or strength query"),
+    limit: int = Query(20, ge=1, le=50),
+    db: Session = Depends(get_db),
+):
+    """Exact normalised matches first; RapidFuzz suggestions second (never auto-selected)."""
+    return search_medicines(db, q, limit=limit)
 
 
 @router.get("/medicines")
@@ -22,6 +33,20 @@ def list_medicines(
     page_size: int = Query(20, ge=1, le=100),
     db: Session = Depends(get_db),
 ):
+    # Prefer Stage-2 search shape when q is provided
+    if q:
+        result = search_medicines(db, q, limit=page_size)
+        return {
+            "items": result["items"],
+            "exact": result["exact"],
+            "suggestions": result["suggestions"],
+            "total": len(result["items"]),
+            "page": page,
+            "page_size": page_size,
+            "query_normalized": result["query_normalized"],
+            "note": result["note"],
+        }
+
     rows, total = search_products(
         db,
         q=q,
@@ -48,8 +73,16 @@ def get_medicine(medicine_id: str, db: Session = Depends(get_db)):
     )
     p = db.scalars(stmt).unique().first()
     if not p:
-        raise HTTPException(404, "Medicine not found")
-    return product_to_dict(p)
+        raise HTTPException(status_code=404, detail="Medicine not found")
+    data = product_to_dict(p)
+    data["source"] = p.source or "source not recorded"
+    data["source_date"] = p.source_date
+    data["source_version"] = p.source_version
+    data["identity_status"] = p.identity_status
+    data["verification_status"] = (
+        "DEMO_ILLUSTRATIVE" if p.is_synthetic else "catalogue_unverified"
+    )
+    return data
 
 
 @router.get("/ingredients/search")

@@ -20,6 +20,7 @@ from backend.app.models.entities import (
 from backend.app.services.dosage_engine import evaluate_dosage
 from backend.app.services.duplicate_detector import detect_duplicates
 from backend.app.services.interaction_engine import evaluate_interactions
+from backend.app.services.search_service import feeds_ingredient_checks
 
 
 def _load_items(db: Session, prescription_id: str) -> list[PrescriptionItem]:
@@ -36,13 +37,21 @@ def _load_items(db: Session, prescription_id: str) -> list[PrescriptionItem]:
 
 
 def _item_payload(item: PrescriptionItem) -> dict[str, Any]:
+    identity = item.identity_status or (
+        "VERIFIED_CATALOGUE_MATCH"
+        if item.resolution_status == "resolved"
+        else "UNRESOLVED"
+    )
+    # Only verified / user-confirmed identities feed ingredient-dependent checks
+    include_ingredients = feeds_ingredient_checks(identity)
     ings = []
-    if item.product_id and item.product:
+    if include_ingredients and item.product_id and item.product:
         for pi in item.product.ingredients or []:
             ing = pi.ingredient
             if not ing:
                 continue
             ings.append({"id": ing.id, "name": ing.canonical_name})
+    effective_resolution = "resolved" if include_ingredients else "unresolved"
     return {
         "item_id": item.id,
         "product_id": item.product_id,
@@ -51,7 +60,8 @@ def _item_payload(item: PrescriptionItem) -> dict[str, Any]:
             if item.product
             else (item.entered_name or item.entered_brand_name)
         ),
-        "resolution_status": item.resolution_status,
+        "identity_status": identity,
+        "resolution_status": effective_resolution,
         "ingredients": ings,
         "dose_amount": item.dose_amount,
         "dose_unit": item.dose_unit,
