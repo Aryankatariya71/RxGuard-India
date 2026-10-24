@@ -1,0 +1,919 @@
+[
+  {
+    "id": "dup-01",
+    "prescription_text": "Tab Dolo 650 1-0-1 x 5 days\nTab Crocin Advance BD\nTab Combiflam 1-0-1",
+    "patient": {
+      "age_years": 35,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Dolo",
+      "Crocin",
+      "Combiflam"
+    ],
+    "expected_alerts": [
+      {
+        "type": "duplicate",
+        "ingredients": [
+          "paracetamol"
+        ],
+        "tier": "review"
+      }
+    ],
+    "expected_no_alerts_for": [
+      "critical_dose"
+    ],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dup-02",
+    "prescription_text": "Tab Dolo 650 TDS\nTab Crocin Advance BD",
+    "patient": {
+      "age_years": 30,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Dolo",
+      "Crocin"
+    ],
+    "expected_alerts": [
+      {
+        "type": "duplicate",
+        "ingredients": [
+          "paracetamol"
+        ],
+        "tier": "review"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dup-03",
+    "prescription_text": "Tab Combiflam 1-0-1\nTab Dolo 650 1-0-1",
+    "patient": {
+      "age_years": 28,
+      "weight_kg": 65
+    },
+    "expected_resolved_brands": [
+      "Combiflam",
+      "Dolo"
+    ],
+    "expected_alerts": [
+      {
+        "type": "duplicate",
+        "ingredients": [
+          "paracetamol"
+        ],
+        "tier": "review"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dup-04",
+    "prescription_text": "Tab Brufen 400 TDS\nTab Voveran 50 BD",
+    "patient": {
+      "age_years": 40,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Brufen",
+      "Voveran"
+    ],
+    "expected_alerts": [
+      {
+        "type": "duplicate",
+        "ingredients": [
+          "ibuprofen",
+          "diclofenac"
+        ],
+        "tier": "review"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dup-05",
+    "prescription_text": "Tab Pantop 40 OD\nTab Omez 20 OD",
+    "patient": {
+      "age_years": 45,
+      "weight_kg": 72
+    },
+    "expected_resolved_brands": [
+      "Pantop",
+      "Omez"
+    ],
+    "expected_alerts": [
+      {
+        "type": "duplicate",
+        "ingredients": [
+          "pantoprazole",
+          "omeprazole"
+        ],
+        "tier": "review"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dup-06",
+    "prescription_text": "Tab Ecosprin 75 OD\nTab Brufen 400 TDS",
+    "patient": {
+      "age_years": 50,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Ecosprin",
+      "Brufen"
+    ],
+    "expected_alerts": [
+      {
+        "type": "duplicate",
+        "ingredients": [
+          "aspirin",
+          "ibuprofen"
+        ],
+        "tier": "review"
+      },
+      {
+        "type": "interaction",
+        "ingredients": [
+          "aspirin",
+          "ibuprofen"
+        ],
+        "tier": "critical"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dup-07",
+    "prescription_text": "Tab Dolo 650 BD\nTab Calpol 500 TDS",
+    "patient": {
+      "age_years": 32,
+      "weight_kg": 68
+    },
+    "expected_resolved_brands": [
+      "Dolo",
+      "Calpol"
+    ],
+    "expected_alerts": [
+      {
+        "type": "duplicate",
+        "ingredients": [
+          "paracetamol"
+        ],
+        "tier": "review"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dup-08",
+    "prescription_text": "Tab Voveran 50 BD\nTab Nimulid 100 BD",
+    "patient": {
+      "age_years": 38,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Voveran",
+      "Nimulid"
+    ],
+    "expected_alerts": [
+      {
+        "type": "dose",
+        "ingredients": [
+          "nimesulide"
+        ],
+        "tier": "review"
+      },
+      {
+        "type": "duplicate",
+        "ingredients": [
+          "diclofenac",
+          "nimesulide"
+        ],
+        "tier": "review"
+      },
+      {
+        "type": "interaction",
+        "ingredients": [
+          "diclofenac",
+          "nimesulide"
+        ],
+        "tier": "review"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dose-01",
+    "prescription_text": "Tab Dolo 650 1-1-1-1\nTab Crocin Advance QID\nTab Combiflam 1-1-1",
+    "patient": {
+      "age_years": 35,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Dolo",
+      "Crocin",
+      "Combiflam"
+    ],
+    "expected_alerts": [
+      {
+        "type": "duplicate_dose",
+        "ingredients": [
+          "paracetamol"
+        ],
+        "tier": "critical"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dose-02",
+    "prescription_text": "Tab Dolo 650 TDS\nTab Crocin Advance BD",
+    "patient": {
+      "age_years": 5,
+      "weight_kg": 18
+    },
+    "expected_resolved_brands": [
+      "Dolo",
+      "Crocin"
+    ],
+    "expected_alerts": [
+      {
+        "type": "duplicate_dose",
+        "ingredients": [
+          "paracetamol"
+        ],
+        "tier": "critical"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dose-03",
+    "prescription_text": "Tab Dolo 650 TDS",
+    "patient": {
+      "age_years": 5
+    },
+    "expected_resolved_brands": [
+      "Dolo"
+    ],
+    "expected_alerts": [
+      {
+        "type": "dose",
+        "ingredients": [
+          "paracetamol"
+        ],
+        "tier": "info"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dose-04",
+    "prescription_text": "Tab Brufen 400 TDS",
+    "patient": {
+      "age_years": 55,
+      "weight_kg": 70,
+      "egfr": 10
+    },
+    "expected_resolved_brands": [
+      "Brufen"
+    ],
+    "expected_alerts": [
+      {
+        "type": "dose",
+        "ingredients": [
+          "ibuprofen"
+        ],
+        "tier": "critical"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dose-05",
+    "prescription_text": "Tab Eltram 50 QID\nTab Eltram 50 QID\nTab Eltram 50 QID",
+    "patient": {
+      "age_years": 70,
+      "weight_kg": 65
+    },
+    "expected_resolved_brands": [
+      "Eltram"
+    ],
+    "expected_alerts": [
+      {
+        "type": "dose",
+        "ingredients": [
+          "tramadol"
+        ],
+        "tier": "critical"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dose-06",
+    "prescription_text": "Tab Okacet 10 OD",
+    "patient": {
+      "age_years": 40,
+      "weight_kg": 70,
+      "egfr": 40
+    },
+    "expected_resolved_brands": [
+      "Okacet"
+    ],
+    "expected_alerts": [
+      {
+        "type": "dose",
+        "ingredients": [
+          "cetirizine"
+        ],
+        "tier": "critical"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dose-07",
+    "prescription_text": "Tab Dolo 650 1-1-1",
+    "patient": {
+      "age_years": 30,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Dolo"
+    ],
+    "expected_alerts": [],
+    "expected_no_alerts_for": [
+      "paracetamol_overdose"
+    ],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "dose-08",
+    "prescription_text": "Tab Atorva 80 OD\nTab Atorva 40 OD",
+    "patient": {
+      "age_years": 60,
+      "weight_kg": 75
+    },
+    "expected_resolved_brands": [
+      "Atorva"
+    ],
+    "expected_alerts": [
+      {
+        "type": "duplicate_dose",
+        "ingredients": [
+          "atorvastatin"
+        ],
+        "tier": "critical"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "int-01",
+    "prescription_text": "Tab Warf 5 1-0-0\nTab Ecosprin 75 OD\nTab Brufen 400 TDS",
+    "patient": {
+      "age_years": 55,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Warf",
+      "Ecosprin",
+      "Brufen"
+    ],
+    "expected_alerts": [
+      {
+        "type": "interaction",
+        "ingredients": [
+          "aspirin",
+          "warfarin"
+        ],
+        "tier": "critical"
+      },
+      {
+        "type": "interaction",
+        "ingredients": [
+          "ibuprofen",
+          "warfarin"
+        ],
+        "tier": "critical"
+      },
+      {
+        "type": "interaction",
+        "ingredients": [
+          "aspirin",
+          "ibuprofen"
+        ],
+        "tier": "critical"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "int-02",
+    "prescription_text": "Tab Clopilet 75 OD\nTab Omez 20 OD",
+    "patient": {
+      "age_years": 60,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Clopi",
+      "Omez"
+    ],
+    "expected_alerts": [
+      {
+        "type": "interaction",
+        "ingredients": [
+          "clopidogrel",
+          "omeprazole"
+        ],
+        "tier": "critical"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "int-03",
+    "prescription_text": "Tab Eltram 50 TDS\nTab Emeset 4 BD",
+    "patient": {
+      "age_years": 40,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Eltram",
+      "Emeset"
+    ],
+    "expected_alerts": [
+      {
+        "type": "interaction",
+        "ingredients": [
+          "ondansetron",
+          "tramadol"
+        ],
+        "tier": "review"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "int-04",
+    "prescription_text": "Tab Cardace 5 OD\nTab Aldactone 25 OD",
+    "patient": {
+      "age_years": 65,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Cardace",
+      "Aldactone"
+    ],
+    "expected_alerts": [
+      {
+        "type": "interaction",
+        "ingredients": [
+          "ramipril",
+          "spironolactone"
+        ],
+        "tier": "critical"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "int-05",
+    "prescription_text": "Tab Envas 5 OD\nTab Aldactone 25 OD",
+    "patient": {
+      "age_years": 62,
+      "weight_kg": 68
+    },
+    "expected_resolved_brands": [
+      "Envas",
+      "Aldactone"
+    ],
+    "expected_alerts": [
+      {
+        "type": "interaction",
+        "ingredients": [
+          "enalapril",
+          "spironolactone"
+        ],
+        "tier": "critical"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "int-06",
+    "prescription_text": "Tab Brufen 400 TDS\nTab Cardace 5 OD",
+    "patient": {
+      "age_years": 50,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Brufen",
+      "Cardace"
+    ],
+    "expected_alerts": [
+      {
+        "type": "interaction",
+        "ingredients": [
+          "ibuprofen",
+          "ramipril"
+        ],
+        "tier": "review"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "int-07",
+    "prescription_text": "Tab Voveran 50 BD\nTab Telma 40 OD",
+    "patient": {
+      "age_years": 55,
+      "weight_kg": 72
+    },
+    "expected_resolved_brands": [
+      "Voveran",
+      "Telma"
+    ],
+    "expected_alerts": [
+      {
+        "type": "interaction",
+        "ingredients": [
+          "diclofenac",
+          "telmisartan"
+        ],
+        "tier": "review"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "int-08",
+    "prescription_text": "Tab Warf 5 1-0-0\nTab Voveran 50 BD",
+    "patient": {
+      "age_years": 58,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Warf",
+      "Voveran"
+    ],
+    "expected_alerts": [
+      {
+        "type": "interaction",
+        "ingredients": [
+          "diclofenac",
+          "warfarin"
+        ],
+        "tier": "critical"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "misc-01",
+    "prescription_text": "Tab Dolo650 TDS\nTab Pantap 40 OD\nTab Xyzabc 1-0-1",
+    "patient": {
+      "age_years": 35,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Dolo",
+      "Pantop"
+    ],
+    "expected_alerts": [
+      {
+        "type": "needs_confirmation",
+        "ingredients": [],
+        "tier": "review"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "misc-02",
+    "prescription_text": "Tab CompletelyFakeBrand999 OD",
+    "patient": {
+      "age_years": 30,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [],
+    "expected_alerts": [
+      {
+        "type": "needs_confirmation",
+        "ingredients": [],
+        "tier": "info"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "misc-03",
+    "prescription_text": "Tab Doloo 650 TDS",
+    "patient": {
+      "age_years": 30,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Dolo"
+    ],
+    "expected_alerts": [],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "misc-04",
+    "prescription_text": "Tab Pantoprazle 40 OD",
+    "patient": {
+      "age_years": 40,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [],
+    "expected_alerts": [
+      {
+        "type": "needs_confirmation",
+        "ingredients": [],
+        "tier": "review"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "misc-05",
+    "prescription_text": "Tab UnknownMed123 BD\nTab Dolo 650 OD",
+    "patient": {
+      "age_years": 35,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Dolo"
+    ],
+    "expected_alerts": [
+      {
+        "type": "needs_confirmation",
+        "ingredients": [],
+        "tier": "info"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "misc-06",
+    "prescription_text": "Tab Crocinn Advance BD",
+    "patient": {
+      "age_years": 30,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [],
+    "expected_alerts": [
+      {
+        "type": "needs_confirmation",
+        "ingredients": [],
+        "tier": "review"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "syp-01",
+    "prescription_text": "Syp Ascoril LS 5ml TDS",
+    "patient": {
+      "age_years": 35,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Ascoril"
+    ],
+    "expected_alerts": [],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "syp-02",
+    "prescription_text": "Syp Calpol 250mg Paediatric Oral Suspension Strawberry 5ml TDS",
+    "patient": {
+      "age_years": 5,
+      "weight_kg": 18
+    },
+    "expected_resolved_brands": [
+      "Calpol"
+    ],
+    "expected_alerts": [],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "syp-03",
+    "prescription_text": "Syp Ascoril LS 5ml TDS\nTab Pantop 40 OD",
+    "patient": {
+      "age_years": 35,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Ascoril",
+      "Pantop"
+    ],
+    "expected_alerts": [],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "syp-04",
+    "prescription_text": "Susp Combiflam 5ml TDS",
+    "patient": {
+      "age_years": 8,
+      "weight_kg": 25
+    },
+    "expected_resolved_brands": [
+      "Combiflam"
+    ],
+    "expected_alerts": [
+      {
+        "type": "strength_unclear",
+        "ingredients": [
+          "ibuprofen"
+        ],
+        "tier": "info"
+      },
+      {
+        "type": "strength_unclear",
+        "ingredients": [
+          "paracetamol"
+        ],
+        "tier": "info"
+      }
+    ],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "syp-05",
+    "prescription_text": "Tab Augmentin 625 Duo 1-0-1 x 5 days\nSyp Ascoril LS 5ml TDS",
+    "patient": {
+      "age_years": 35,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Augmentin",
+      "Ascoril"
+    ],
+    "expected_alerts": [],
+    "expected_no_alerts_for": [],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "clean-01",
+    "prescription_text": "Tab Pantop 40 OD\nTab Amlong 5 OD",
+    "patient": {
+      "age_years": 40,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Pantop",
+      "Amlong"
+    ],
+    "expected_alerts": [],
+    "expected_no_alerts_for": [
+      "critical"
+    ],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "clean-02",
+    "prescription_text": "Tab Dolo 650 BD",
+    "patient": {
+      "age_years": 30,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Dolo"
+    ],
+    "expected_alerts": [],
+    "expected_no_alerts_for": [
+      "critical"
+    ],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "clean-03",
+    "prescription_text": "Tab Glycomet 500 BD\nTab Aztor 10 OD",
+    "patient": {
+      "age_years": 50,
+      "weight_kg": 75
+    },
+    "expected_resolved_brands": [
+      "Glycomet",
+      "Aztor"
+    ],
+    "expected_alerts": [],
+    "expected_no_alerts_for": [
+      "critical"
+    ],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "clean-04",
+    "prescription_text": "Tab Augmentin 625 Duo 1-0-1 x 5 days\nTab Pantop 40 OD AC",
+    "patient": {
+      "age_years": 35,
+      "weight_kg": 70
+    },
+    "expected_resolved_brands": [
+      "Augmentin",
+      "Pantop"
+    ],
+    "expected_alerts": [],
+    "expected_no_alerts_for": [
+      "critical"
+    ],
+    "labeled_by": "developer",
+    "verified_by": null
+  },
+  {
+    "id": "clean-05",
+    "prescription_text": "Tab Montair 10 OD\nTab Pantop 40 OD",
+    "patient": {
+      "age_years": 28,
+      "weight_kg": 65
+    },
+    "expected_resolved_brands": [
+      "Montair",
+      "Pantop"
+    ],
+    "expected_alerts": [],
+    "expected_no_alerts_for": [
+      "critical"
+    ],
+    "labeled_by": "developer",
+    "verified_by": null
+  }
+]
