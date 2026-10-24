@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { ClipboardList, Database, Lock, ShieldCheck } from 'lucide-react'
+import { BookOpen, ClipboardList, Database, Lock, ShieldCheck } from 'lucide-react'
 import { FloatingVisual } from './FloatingVisual'
 
 type Stats = {
@@ -12,7 +12,6 @@ type Stats = {
 export function Hero() {
   const reduce = useReducedMotion()
   const [stats, setStats] = useState<Stats | null>(null)
-  const [imgOk, setImgOk] = useState(true)
 
   useEffect(() => {
     fetch('/api/catalogue/stats', { signal: AbortSignal.timeout(5000) })
@@ -23,8 +22,8 @@ export function Hero() {
 
   return (
     <section id="top" className="relative overflow-hidden bg-[#F1F7F5]">
-      <div className="rx-container grid items-center gap-10 py-12 lg:grid-cols-2 lg:gap-12 lg:py-16 xl:gap-16">
-        <div>
+      <div className="rx-container grid items-center gap-10 py-12 lg:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] lg:gap-8 lg:py-16 xl:gap-10">
+        <div className="min-w-0">
           <motion.p
             initial={reduce ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -49,10 +48,10 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="rx-prose mt-5 text-base leading-relaxed text-[#334155] sm:text-lg"
+            className="mt-5 max-w-[36rem] text-base leading-relaxed text-[#334155] sm:text-lg"
           >
             Understand potential medicine risks, duplicate ingredients, and possible interactions
-            with clear, explainable prescription safety checks.
+            through clear, explainable prescription safety checks.
           </motion.p>
 
           <motion.div
@@ -63,7 +62,7 @@ export function Hero() {
           >
             <a
               href="#checker"
-              className="btn-primary inline-flex items-center gap-2 px-6 py-3.5 text-sm text-white"
+              className="btn-primary inline-flex items-center gap-2 px-6 py-3.5 text-sm text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0D9B78]"
             >
               <ClipboardList className="h-4 w-4" strokeWidth={2} aria-hidden />
               Check a prescription
@@ -83,14 +82,18 @@ export function Hero() {
             className="mt-8 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap"
           >
             <li className="inline-flex items-center gap-2 text-sm text-[#64748B]">
-              <Lock className="h-4 w-4 shrink-0 text-[#087F6E]" strokeWidth={2} aria-hidden />
-              Explainable rules — not a black box
+              <Lock className="h-4 w-4 shrink-0 text-[#0D9B78]" strokeWidth={2} aria-hidden />
+              Explainable safety checks
             </li>
             <li className="inline-flex items-center gap-2 text-sm text-[#64748B]">
-              <Database className="h-4 w-4 shrink-0 text-[#087F6E]" strokeWidth={2} aria-hidden />
+              <Database className="h-4 w-4 shrink-0 text-[#0D9B78]" strokeWidth={2} aria-hidden />
               {stats
                 ? `${stats.total_products.toLocaleString()} products in local catalogue`
-                : 'Local medicine catalogue'}
+                : 'Available medicine catalogue'}
+            </li>
+            <li className="inline-flex items-center gap-2 text-sm text-[#64748B]">
+              <BookOpen className="h-4 w-4 shrink-0 text-[#0D9B78]" strokeWidth={2} aria-hidden />
+              Source-backed findings where available
             </li>
           </motion.ul>
 
@@ -103,38 +106,9 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.12, duration: 0.45 }}
-          className="relative"
+          className="relative min-w-0 w-full"
         >
-          {imgOk ? (
-            <div className="relative overflow-hidden rounded-2xl border border-[#DCE8E4] bg-[#DDF5EC] shadow-[0_8px_30px_rgba(7,83,77,0.08)]">
-              <img
-                src="/images/hero-healthcare.jpg"
-                alt="Healthcare professional reviewing clinical information on a computer"
-                width={1600}
-                height={1067}
-                className="aspect-[4/3] w-full object-cover"
-                onError={() => setImgOk(false)}
-                fetchPriority="high"
-              />
-              <div
-                className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#07534D]/25 via-transparent to-[#DDF5EC]/20"
-                aria-hidden
-              />
-              <div className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-64">
-                <div className="rounded-xl border border-white/70 bg-white/95 p-3 shadow-sm backdrop-blur-sm">
-                  <p className="text-[11px] font-semibold uppercase tracking-wide text-[#087F6E]">
-                    Brand → ingredients
-                  </p>
-                  <p className="mt-1 font-mono text-sm font-semibold text-[#123C38]">Combiflam</p>
-                  <p className="mt-0.5 font-mono text-xs text-[#64748B]">
-                    Ibuprofen · Paracetamol
-                  </p>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <FloatingVisual />
-          )}
+          <FloatingVisual />
         </motion.div>
       </div>
     </section>
