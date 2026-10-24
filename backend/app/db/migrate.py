@@ -54,6 +54,10 @@ def upgrade() -> str:
                 "geographic_applicability",
                 "geographic_applicability VARCHAR(64)",
             )
+            _sqlite_add_column_if_missing(conn, "products", "price", "price FLOAT")
+            _sqlite_add_column_if_missing(
+                conn, "products", "price_as_of", "price_as_of VARCHAR(32)"
+            )
         except Exception:
             pass
 

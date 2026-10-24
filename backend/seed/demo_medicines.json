@@ -11,6 +11,78 @@
     "source": "Synthetic demo dataset",
     "source_version": "demo-1.0",
     "is_synthetic": true,
+    "price": 100.0,
+    "price_as_of": "2022-11",
+    "ingredients": [
+      {
+        "ingredient_id": "ing-synth-x",
+        "strength_value": 500,
+        "strength_unit": "mg",
+        "incomplete_flag": false
+      }
+    ]
+  },
+  {
+    "id": "prod-demo-alpha-cheap",
+    "brand_name": "Demo Product Alpha Value",
+    "normalized_name": "demo product alpha value",
+    "manufacturer": "Synthetic Budget Labs",
+    "strength_label": "Synthetic Ingredient X 500 mg",
+    "dosage_form": "tablet",
+    "route": "oral",
+    "identity_status": "VERIFIED_CATALOGUE_MATCH",
+    "source": "Synthetic demo dataset",
+    "source_version": "demo-1.0",
+    "is_synthetic": true,
+    "price": 62.5,
+    "price_as_of": "2022-11",
+    "ingredients": [
+      {
+        "ingredient_id": "ing-synth-x",
+        "strength_value": 500,
+        "strength_unit": "mg",
+        "incomplete_flag": false
+      }
+    ]
+  },
+  {
+    "id": "prod-demo-alpha-mid",
+    "brand_name": "Demo Product Alpha Mid",
+    "normalized_name": "demo product alpha mid",
+    "manufacturer": "Synthetic Mid Labs",
+    "strength_label": "Synthetic Ingredient X 500 mg",
+    "dosage_form": "tablet",
+    "route": "oral",
+    "identity_status": "VERIFIED_CATALOGUE_MATCH",
+    "source": "Synthetic demo dataset",
+    "source_version": "demo-1.0",
+    "is_synthetic": true,
+    "price": 80.0,
+    "price_as_of": "2022-11",
+    "ingredients": [
+      {
+        "ingredient_id": "ing-synth-x",
+        "strength_value": 500,
+        "strength_unit": "mg",
+        "incomplete_flag": false
+      }
+    ]
+  },
+  {
+    "id": "prod-demo-alpha-disc",
+    "brand_name": "Demo Product Alpha Old",
+    "normalized_name": "demo product alpha old",
+    "manufacturer": "Synthetic Legacy Labs",
+    "strength_label": "Synthetic Ingredient X 500 mg",
+    "dosage_form": "tablet",
+    "route": "oral",
+    "identity_status": "VERIFIED_CATALOGUE_MATCH",
+    "source": "Synthetic demo dataset",
+    "source_version": "demo-1.0",
+    "is_synthetic": true,
+    "is_discontinued": true,
+    "price": 40.0,
+    "price_as_of": "2022-11",
     "ingredients": [
       {
         "ingredient_id": "ing-synth-x",
@@ -32,6 +104,8 @@
     "source": "Synthetic demo dataset",
     "source_version": "demo-1.0",
     "is_synthetic": true,
+    "price": 55.0,
+    "price_as_of": "2022-11",
     "ingredients": [
       {
         "ingredient_id": "ing-synth-x",
@@ -53,6 +127,8 @@
     "source": "Synthetic demo dataset",
     "source_version": "demo-1.0",
     "is_synthetic": true,
+    "price": 120.0,
+    "price_as_of": "2022-11",
     "ingredients": [
       {
         "ingredient_id": "ing-synth-x",
@@ -80,12 +156,37 @@
     "source": "Synthetic demo dataset",
     "source_version": "demo-1.0",
     "is_synthetic": true,
+    "price": 90.0,
+    "price_as_of": "2022-11",
     "ingredients": [
       {
         "ingredient_id": "ing-synth-z",
         "strength_value": 75,
         "strength_unit": "mg",
         "incomplete_flag": false
+      }
+    ]
+  },
+  {
+    "id": "prod-demo-incomplete",
+    "brand_name": "Demo Incomplete Plus",
+    "normalized_name": "demo incomplete plus",
+    "manufacturer": "Synthetic Demo Labs",
+    "strength_label": "Possible multi-ingredient (incomplete)",
+    "dosage_form": "tablet",
+    "route": "oral",
+    "identity_status": "AMBIGUOUS",
+    "source": "Synthetic demo dataset",
+    "source_version": "demo-1.0",
+    "is_synthetic": true,
+    "price": 70.0,
+    "price_as_of": "2022-11",
+    "ingredients": [
+      {
+        "ingredient_id": "ing-synth-x",
+        "strength_value": 500,
+        "strength_unit": "mg",
+        "incomplete_flag": true
       }
     ]
   }

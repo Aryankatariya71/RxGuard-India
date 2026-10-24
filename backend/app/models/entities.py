@@ -73,6 +73,9 @@ class Product(Base):
     )  # e.g. US_RXNORM | INDIA_CATALOGUE | DEMO
     is_discontinued: Mapped[bool] = mapped_column(Boolean, default=False)
     is_synthetic: Mapped[bool] = mapped_column(Boolean, default=False)
+    # Listed price from A–Z Medicines Dataset of India (Kaggle), November 2022 snapshot
+    price: Mapped[float | None] = mapped_column(Float, nullable=True)
+    price_as_of: Mapped[str | None] = mapped_column(String(32), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=_now, onupdate=_now)
 

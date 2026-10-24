@@ -116,6 +116,8 @@ def product_to_dict(p: Product) -> dict:
         "data_version": p.source_version,
         "is_discontinued": p.is_discontinued,
         "is_synthetic": p.is_synthetic,
+        "price": p.price,
+        "price_as_of": p.price_as_of,
         "ingredients": ings,
     }
 

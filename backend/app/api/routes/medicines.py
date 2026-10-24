@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session, joinedload
 from backend.app.api.schemas.dtos import ingredient_to_dict, product_to_dict
 from backend.app.db.session import get_db
 from backend.app.models.entities import Ingredient, Product, ProductIngredient
+from backend.app.services.alternatives import find_alternatives
 from backend.app.services.ingredient_resolution import search_products
 from backend.app.services.search_service import search_medicines
 
@@ -64,6 +65,19 @@ def list_medicines(
     }
 
 
+@router.get("/medicines/{medicine_id}/alternatives")
+def medicine_alternatives(
+    medicine_id: str,
+    limit: int = Query(3, ge=1, le=10),
+    db: Session = Depends(get_db),
+):
+    """Same composition + strengths + form; non-discontinued; sorted by listed price.
+
+    Prices are from the November 2022 catalogue snapshot — informational only.
+    """
+    return find_alternatives(db, medicine_id, limit=limit)
+
+
 @router.get("/medicines/{medicine_id}")
 def get_medicine(medicine_id: str, db: Session = Depends(get_db)):
     stmt = (
@@ -82,6 +96,8 @@ def get_medicine(medicine_id: str, db: Session = Depends(get_db)):
     data["verification_status"] = (
         "DEMO_ILLUSTRATIVE" if p.is_synthetic else "catalogue_unverified"
     )
+    data["price"] = p.price
+    data["price_as_of"] = p.price_as_of
     return data
 
 

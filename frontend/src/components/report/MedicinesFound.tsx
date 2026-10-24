@@ -1,5 +1,7 @@
 import type { LineItem } from '../../api/types'
 import { lineKey } from '../../lib/whatIf'
+import { ErrorBoundary } from '../common/ErrorBoundary'
+import { PriceAlternatives } from './PriceAlternatives'
 
 interface Props {
   items: LineItem[]
@@ -144,6 +146,12 @@ export function MedicinesFound({
               )}
               {needs && !(item.candidates || []).length && (
                 <p className="mt-2 text-xs text-rose-300">Needs confirmation — no candidates</p>
+              )}
+
+              {enabled && item.resolved && (
+                <ErrorBoundary label="Price alternatives">
+                  <PriceAlternatives item={item} />
+                </ErrorBoundary>
               )}
             </li>
           )

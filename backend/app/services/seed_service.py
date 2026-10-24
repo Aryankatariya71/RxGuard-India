@@ -74,6 +74,12 @@ def seed_demo(db: Session) -> dict[str, int]:
     for row in _load_json("demo_medicines.json"):
         existing = db.get(Product, row["id"])
         if existing:
+            # Backfill listed price / discontinued flag for older DB files
+            if existing.price is None and row.get("price") is not None:
+                existing.price = float(row["price"])
+                existing.price_as_of = row.get("price_as_of", "2022-11")
+            if row.get("is_discontinued") is not None:
+                existing.is_discontinued = bool(row["is_discontinued"])
             continue
         db.add(
             Product(
@@ -90,6 +96,9 @@ def seed_demo(db: Session) -> dict[str, int]:
                 verification_status="DEMO_ONLY",
                 geographic_applicability="DEMO",
                 is_synthetic=True,
+                is_discontinued=bool(row.get("is_discontinued", False)),
+                price=float(row["price"]) if row.get("price") is not None else None,
+                price_as_of=row.get("price_as_of", "2022-11") if row.get("price") is not None else None,
             )
         )
         counts["products"] += 1
@@ -206,7 +215,11 @@ def seed_catalogue(db: Session, *, limit: int | None = None) -> dict[str, int]:
 
     for _, row in df.iterrows():
         ext_id = f"cat-{row.get('id')}"
-        if db.get(Product, ext_id):
+        existing_prod = db.get(Product, ext_id)
+        if existing_prod:
+            if existing_prod.price is None and pd.notna(row.get("price")):
+                existing_prod.price = float(row["price"])
+                existing_prod.price_as_of = "2022-11"
             continue
 
         brand = str(row.get("name") or "").strip()
@@ -244,6 +257,12 @@ def seed_catalogue(db: Session, *, limit: int | None = None) -> dict[str, int]:
                     else False
                 ),
                 is_synthetic=False,
+                price=(
+                    float(row["price"])
+                    if pd.notna(row.get("price"))
+                    else None
+                ),
+                price_as_of="2022-11",
             )
         )
         counts["products"] += 1
