@@ -15,7 +15,8 @@ describe('StressTestPage', () => {
       </MemoryRouter>,
     )
     expect(screen.getByTestId('stress-test-page')).toBeInTheDocument()
-    expect(screen.getByText(/Run synthetic prescriptions/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /^Stress test$/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /^Run$/i })).toBeInTheDocument()
+    expect(screen.getByText('500')).toBeInTheDocument()
   })
 })
