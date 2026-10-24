@@ -9,6 +9,7 @@ import { DoseTimeline } from './DoseTimeline'
 import { IngredientXray } from './IngredientXray'
 import { MedicinesFound } from './MedicinesFound'
 import { PipelineAnimation } from './PipelineAnimation'
+import { RiskMap } from './RiskMap'
 import { VerdictCard } from './VerdictCard'
 import { WhyDrawer } from './WhyDrawer'
 
@@ -34,6 +35,7 @@ export function ReportPanel({
   onPickCandidate,
 }: Props) {
   const [why, setWhy] = useState<Alert | null>(null)
+  const [tab, setTab] = useState<'report' | 'risk'>('report')
   const reduce = useReducedMotion()
   const animKey = report
     ? `${report.verdict}-${report.counts?.critical}-${report.counts?.review}-${report.items?.length}`
@@ -94,6 +96,37 @@ export function ReportPanel({
       )}
 
       {report && (
+        <div className="flex gap-2 border-b border-[var(--card-border)] pb-2">
+          <button
+            type="button"
+            onClick={() => setTab('report')}
+            className={`rounded-xl px-3 py-1.5 text-xs font-semibold ${
+              tab === 'report' ? 'bg-teal-500/20 text-teal-100' : 'text-[var(--muted)]'
+            }`}
+            aria-pressed={tab === 'report'}
+          >
+            Report
+          </button>
+          <button
+            type="button"
+            onClick={() => setTab('risk')}
+            className={`rounded-xl px-3 py-1.5 text-xs font-semibold ${
+              tab === 'risk' ? 'bg-teal-500/20 text-teal-100' : 'text-[var(--muted)]'
+            }`}
+            aria-pressed={tab === 'risk'}
+          >
+            Risk map
+          </button>
+        </div>
+      )}
+
+      {report && tab === 'risk' && (
+        <ErrorBoundary label="Risk map">
+          <RiskMap report={report} />
+        </ErrorBoundary>
+      )}
+
+      {report && tab === 'report' && (
         <motion.div
           key={animKey}
           initial={reduce ? false : { opacity: 0.6, y: 8 }}
