@@ -14,22 +14,48 @@ export function IngredientsPage() {
   const { theme, toggle } = useTheme()
   const [query, setQuery] = useState('')
   const [suggestions, setSuggestions] = useState<IngredientHit[]>([])
+  const [starters, setStarters] = useState<IngredientHit[]>([])
   const [selected, setSelected] = useState<IngredientHit | null>(null)
   const [report, setReport] = useState<IngredientProductsResponse | null>(null)
   const [page, setPage] = useState(1)
   const [brandQ, setBrandQ] = useState('')
   const [formFilter, setFormFilter] = useState('')
   const [loading, setLoading] = useState(false)
+  const [searching, setSearching] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [noMatch, setNoMatch] = useState(false)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
+    void searchIngredients('', 12).then((items) => {
+      setStarters(items)
+      if (!items.length) {
+        setError(
+          'No ingredients in the database yet. Seed the catalogue, or use demo data (Synthetic Ingredient X).',
+        )
+      }
+    })
+  }, [])
+
+  useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current)
-    if (!query.trim() || (selected && selected.canonical_name === query)) {
+    if (selected && selected.canonical_name === query) {
       setSuggestions([])
+      setNoMatch(false)
       return
     }
+    if (!query.trim()) {
+      setSuggestions([])
+      setNoMatch(false)
+      return
+    }
+    setSearching(true)
     debounceRef.current = setTimeout(() => {
-      void searchIngredients(query, 15).then(setSuggestions)
+      void searchIngredients(query, 15).then((items) => {
+        setSuggestions(items)
+        setNoMatch(items.length === 0)
+        setSearching(false)
+      })
     }, 280)
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current)
@@ -42,13 +68,19 @@ export function IngredientsPage() {
       return
     }
     setLoading(true)
+    setError(null)
     void fetchIngredientProducts(selected.id, {
       page,
       page_size: 50,
       q: brandQ || undefined,
       dosage_form: formFilter || undefined,
     }).then((data) => {
-      setReport(data)
+      if (!data) {
+        setError('Could not load products for this ingredient (API offline or not found).')
+        setReport(null)
+      } else {
+        setReport(data)
+      }
       setLoading(false)
     })
   }, [selected, page, brandQ, formFilter])
@@ -57,7 +89,16 @@ export function IngredientsPage() {
     setSelected(hit)
     setQuery(hit.canonical_name)
     setSuggestions([])
+    setNoMatch(false)
     setPage(1)
+    setError(null)
+  }
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && suggestions[0]) {
+      e.preventDefault()
+      pick(suggestions[0])
+    }
   }
 
   return (
@@ -81,13 +122,23 @@ export function IngredientsPage() {
                 setQuery(e.target.value)
                 setSelected(null)
               }}
-              placeholder="e.g. Synthetic Ingredient X"
+              onKeyDown={onKeyDown}
+              placeholder="Type a name, or pick a starter below"
               className="glass mt-2 w-full rounded-2xl px-4 py-3 text-sm outline-none"
               autoComplete="off"
               role="combobox"
               aria-expanded={suggestions.length > 0}
               aria-controls="ing-suggestions"
             />
+            {searching && (
+              <p className="mt-1 text-xs text-[var(--muted)]">Searching…</p>
+            )}
+            {noMatch && (
+              <p className="mt-2 text-sm text-amber-200" role="status">
+                No ingredients match “{query}”. Try a starter chip below, or seed the A–Z
+                catalogue into the DB.
+              </p>
+            )}
             {suggestions.length > 0 && (
               <ul
                 id="ing-suggestions"
@@ -109,6 +160,32 @@ export function IngredientsPage() {
               </ul>
             )}
           </div>
+
+          {!selected && starters.length > 0 && (
+            <div className="mt-4">
+              <p className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+                Try one of these
+              </p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {starters.map((s) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => pick(s)}
+                    className="rounded-full border border-teal-500/30 bg-teal-500/10 px-3 py-1.5 text-xs font-medium text-teal-100 hover:bg-teal-500/20"
+                  >
+                    {s.canonical_name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {error && (
+            <p className="mt-4 text-sm text-amber-200" role="alert">
+              {error}
+            </p>
+          )}
 
           {loading && (
             <p className="mt-6 text-sm text-[var(--muted)]">Loading catalogue counts…</p>

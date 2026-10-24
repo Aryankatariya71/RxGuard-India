@@ -108,14 +108,48 @@ def search_ingredients(
     limit: int = Query(30, ge=1, le=50),
     db: Session = Depends(get_db),
 ):
+    from sqlalchemy import func, or_
+
     raw = (q or "").strip().lower()
     if not raw:
-        return {"items": [], "query": q}
+        # Starter list: ingredients with the most catalogue/demo product links
+        link_counts = (
+            select(
+                ProductIngredient.ingredient_id.label("iid"),
+                func.count(ProductIngredient.id).label("n"),
+            )
+            .group_by(ProductIngredient.ingredient_id)
+            .subquery()
+        )
+        rows = list(
+            db.scalars(
+                select(Ingredient)
+                .join(link_counts, Ingredient.id == link_counts.c.iid)
+                .order_by(link_counts.c.n.desc(), Ingredient.canonical_name)
+                .limit(limit)
+            ).all()
+        )
+        if not rows:
+            rows = list(
+                db.scalars(
+                    select(Ingredient).order_by(Ingredient.canonical_name).limit(limit)
+                ).all()
+            )
+        return {
+            "items": [ingredient_to_dict(r) for r in rows],
+            "query": q,
+            "note": "Popular ingredients in the loaded catalogue (empty query).",
+        }
     term = f"%{raw}%"
     rows = list(
         db.scalars(
             select(Ingredient)
-            .where(Ingredient.normalized_name.like(term))
+            .where(
+                or_(
+                    Ingredient.normalized_name.like(term),
+                    Ingredient.canonical_name.like(term),
+                )
+            )
             .order_by(Ingredient.canonical_name)
             .limit(limit)
         ).all()

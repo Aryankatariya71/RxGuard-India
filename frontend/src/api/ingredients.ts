@@ -44,7 +44,6 @@ export interface IngredientProductsResponse {
 }
 
 export async function searchIngredients(q: string, limit = 20): Promise<IngredientHit[]> {
-  if (!q.trim()) return []
   try {
     const res = await fetch(
       `/api/ingredients/search?q=${encodeURIComponent(q)}&limit=${limit}`,

@@ -209,6 +209,9 @@ def seed_catalogue(db: Session, *, limit: int | None = None) -> dict[str, int]:
 
     counts = {"products": 0, "ingredients": 0, "links": 0}
     ing_cache: dict[str, str] = {}
+    # Track pending (product_id, ingredient_id) so expand_brand duplicates
+    # do not violate UNIQUE before flush.
+    pending_links: set[tuple[str, str]] = set()
 
     for ing in db.scalars(select(Ingredient)).all():
         ing_cache[ing.normalized_name] = ing.id
@@ -306,27 +309,33 @@ def seed_catalogue(db: Session, *, limit: int | None = None) -> dict[str, int]:
             if sval is not None:
                 strength_parts.append(f"{cname} {sval} {sunit or ''}".strip())
 
+            link_key = (ext_id, iid)
+            if link_key in pending_links:
+                continue
             exists_link = db.scalars(
                 select(ProductIngredient).where(
                     ProductIngredient.product_id == ext_id,
                     ProductIngredient.ingredient_id == iid,
                 )
             ).first()
-            if not exists_link:
-                db.add(
-                    ProductIngredient(
-                        product_id=ext_id,
-                        ingredient_id=iid,
-                        strength_value=float(sval) if sval is not None else None,
-                        strength_unit=sunit,
-                        per_value=comp.get("per_value"),
-                        per_unit=comp.get("per_unit"),
-                        source=CATALOGUE_SOURCE_LABEL,
-                        incomplete_flag=incomplete,
-                        active_flag=True,
-                    )
+            if exists_link:
+                pending_links.add(link_key)
+                continue
+            pending_links.add(link_key)
+            db.add(
+                ProductIngredient(
+                    product_id=ext_id,
+                    ingredient_id=iid,
+                    strength_value=float(sval) if sval is not None else None,
+                    strength_unit=sunit,
+                    per_value=comp.get("per_value"),
+                    per_unit=comp.get("per_unit"),
+                    source=CATALOGUE_SOURCE_LABEL,
+                    incomplete_flag=incomplete,
+                    active_flag=True,
                 )
-                counts["links"] += 1
+            )
+            counts["links"] += 1
 
         prod = db.get(Product, ext_id)
         if prod and strength_parts:
