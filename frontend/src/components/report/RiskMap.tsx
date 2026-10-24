@@ -168,13 +168,11 @@ export function RiskMap({ report }: Props) {
           </div>
         )}
 
-        <div className="mt-4">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--muted)]">
-            Edge list (accessible fallback)
-          </h4>
-          {data.edges.length === 0 ? (
-            <p className="mt-1 text-sm text-[var(--muted)]">{data.emptyMessage}</p>
-          ) : (
+        {data.edges.length > 0 && (
+          <div className="mt-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--muted)]">
+              Edge list (accessible fallback)
+            </h4>
             <ul className="mt-2 space-y-2">
               {data.edges.map((e) => (
                 <li key={e.id}>
@@ -204,8 +202,8 @@ export function RiskMap({ report }: Props) {
                 </li>
               ))}
             </ul>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   )
