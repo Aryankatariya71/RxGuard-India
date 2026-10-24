@@ -22,6 +22,8 @@ export interface RiskEdge {
   status?: string
   title: string
   icon: 'alert' | 'link' | 'copy'
+  /** Same-ingredient duplicate across brands (drawn as a ring, not a line). */
+  selfLoop?: boolean
 }
 
 export interface RiskMapData {
@@ -58,6 +60,15 @@ function tierIcon(tier: string, kind: RiskEdge['kind']): RiskEdge['icon'] {
   return 'link'
 }
 
+function alertKind(alert: Alert): 'interaction' | 'duplicate' | null {
+  const type = (alert.type || '').toLowerCase()
+  const title = (alert.title || '').toLowerCase()
+  // duplicate_dose / duplicate / class duplicate
+  if (type.includes('duplicate') || title.includes('duplicate')) return 'duplicate'
+  if (type.includes('interaction') || title.includes('interaction')) return 'interaction'
+  return null
+}
+
 /** Collect ingredient → brands from resolved line items. */
 export function ingredientsFromItems(items: LineItem[]): Map<string, RiskNode> {
   const map = new Map<string, RiskNode>()
@@ -79,44 +90,60 @@ export function ingredientsFromItems(items: LineItem[]): Map<string, RiskNode> {
   return map
 }
 
+function ensureNode(
+  map: Map<string, RiskNode>,
+  name: string,
+  brands: string[] = [],
+): string {
+  const id = norm(name)
+  const existing = map.get(id)
+  if (!existing) {
+    map.set(id, { id, label: name, brands: [...brands] })
+  } else {
+    for (const b of brands) {
+      if (!existing.brands.includes(b)) existing.brands.push(b)
+    }
+  }
+  return id
+}
+
+function pushEdge(edges: RiskEdge[], seen: Set<string>, edge: RiskEdge): void {
+  if (seen.has(edge.id)) return
+  seen.add(edge.id)
+  edges.push(edge)
+}
+
 export function buildRiskMap(items: LineItem[], alerts: Alert[]): RiskMapData {
   const nodeMap = ingredientsFromItems(items)
   const edges: RiskEdge[] = []
   const seen = new Set<string>()
 
   for (const alert of alerts || []) {
-    const type = (alert.type || '').toLowerCase()
-    const ings = (alert.ingredients || []).map((x) => String(x).trim()).filter(Boolean)
-    const isDup = type.includes('duplicate')
-    const isInt = type.includes('interaction')
-    if (!isDup && !isInt) continue
+    const kind = alertKind(alert)
+    if (!kind) continue
 
-    // Prefer pairs from ingredients list; for duplicates may be 1 ingredient across brands
-    if (isDup && ings.length === 1) {
-      const id = norm(ings[0])
-      if (!nodeMap.has(id)) {
-        nodeMap.set(id, {
-          id,
-          label: ings[0],
-          brands: alert.brands || [],
-        })
-      } else {
-        const n = nodeMap.get(id)!
-        for (const b of alert.brands || []) {
-          if (!n.brands.includes(b)) n.brands.push(b)
-        }
-      }
-      // Self-loop style: represent as dashed edge from ingredient to itself via brands
-      const key = `dup-self:${id}:${alert.source_rule_id || alert.id}`
-      if (!seen.has(key) && (alert.brands || []).length >= 2) {
-        seen.add(key)
-        edges.push({
-          id: key,
+    const ings = (alert.ingredients || [])
+      .map((x) => String(x).trim())
+      .filter(Boolean)
+    const brands = (alert.brands || []).map(String)
+
+    // Same ingredient in 2+ brands → dashed self / ring edge
+    if (kind === 'duplicate' && ings.length === 1) {
+      const id = ensureNode(nodeMap, ings[0], brands)
+      const brandCount = Math.max(
+        brands.length,
+        nodeMap.get(id)?.brands.length || 0,
+      )
+      if (brandCount < 2 && brands.length < 2) {
+        // Still surface the alert in the list with a self marker if engine fired
+        pushEdge(edges, seen, {
+          id: `dup-self:${id}:${alert.source_rule_id || alert.id}`,
           source: id,
           target: id,
           kind: 'duplicate',
           tier: alert.tier || 'review',
           dashed: true,
+          selfLoop: true,
           ruleId: alert.source_rule_id || alert.id,
           mechanism: alert.mechanism ? String(alert.mechanism) : undefined,
           sourceLabel: alert.source_label || 'source not recorded',
@@ -125,43 +152,57 @@ export function buildRiskMap(items: LineItem[], alerts: Alert[]): RiskMapData {
           title: alert.title || 'Duplicate ingredient',
           icon: 'copy',
         })
+        continue
       }
+      pushEdge(edges, seen, {
+        id: `dup-self:${id}:${alert.source_rule_id || alert.id}`,
+        source: id,
+        target: id,
+        kind: 'duplicate',
+        tier: alert.tier || 'review',
+        dashed: true,
+        selfLoop: true,
+        ruleId: alert.source_rule_id || alert.id,
+        mechanism: alert.mechanism ? String(alert.mechanism) : undefined,
+        sourceLabel: alert.source_label || 'source not recorded',
+        version: alert.rule_version ? String(alert.rule_version) : undefined,
+        status: inferStatus(alert),
+        title: alert.title || 'Duplicate ingredient',
+        icon: 'copy',
+      })
       continue
     }
 
-    // Pairwise edges among listed ingredients
-    for (let i = 0; i < ings.length; i++) {
-      for (let j = i + 1; j < ings.length; j++) {
-        const a = ings[i]
-        const b = ings[j]
-        const na = norm(a)
-        const nb = norm(b)
-        if (!nodeMap.has(na)) nodeMap.set(na, { id: na, label: a, brands: alert.brands || [] })
-        if (!nodeMap.has(nb)) nodeMap.set(nb, { id: nb, label: b, brands: alert.brands || [] })
-        const key = `${isDup ? 'dup' : 'int'}:${pairKey(a, b)}:${alert.source_rule_id || alert.id}`
-        if (seen.has(key)) continue
-        seen.add(key)
-        const kind: RiskEdge['kind'] = isDup ? 'duplicate' : 'interaction'
-        edges.push({
-          id: key,
-          source: na,
-          target: nb,
-          kind,
-          tier: alert.tier || 'review',
-          dashed: kind === 'duplicate',
-          ruleId: alert.source_rule_id || alert.id,
-          mechanism: alert.mechanism ? String(alert.mechanism) : undefined,
-          sourceLabel: alert.source_label || 'source not recorded',
-          version: alert.rule_version ? String(alert.rule_version) : undefined,
-          status: inferStatus(alert),
-          title: alert.title || (kind === 'duplicate' ? 'Duplicate' : 'Interaction'),
-          icon: tierIcon(alert.tier || 'review', kind),
-        })
+    // Pairwise among listed ingredients (interactions + multi-ingredient class dup)
+    if (ings.length >= 2) {
+      for (let i = 0; i < ings.length; i++) {
+        for (let j = i + 1; j < ings.length; j++) {
+          const a = ings[i]
+          const b = ings[j]
+          const na = ensureNode(nodeMap, a, brands)
+          const nb = ensureNode(nodeMap, b, brands)
+          pushEdge(edges, seen, {
+            id: `${kind}:${pairKey(a, b)}:${alert.source_rule_id || alert.id}`,
+            source: na,
+            target: nb,
+            kind,
+            tier: alert.tier || 'review',
+            dashed: kind === 'duplicate',
+            ruleId: alert.source_rule_id || alert.id,
+            mechanism: alert.mechanism ? String(alert.mechanism) : undefined,
+            sourceLabel: alert.source_label || 'source not recorded',
+            version: alert.rule_version ? String(alert.rule_version) : undefined,
+            status: inferStatus(alert),
+            title:
+              alert.title || (kind === 'duplicate' ? 'Duplicate' : 'Interaction'),
+            icon: tierIcon(alert.tier || 'review', kind),
+          })
+        }
       }
+      continue
     }
   }
 
-  // Keep nodes that appear in edges or are from items (show all active ingredients)
   const nodes = [...nodeMap.values()].sort((a, b) => a.label.localeCompare(b.label))
 
   if (edges.length === 0) {
@@ -180,11 +221,11 @@ export function circularLayout(
   nodes: RiskNode[],
   width: number,
   height: number,
-  padding = 48,
+  padding = 56,
 ): Map<string, { x: number; y: number }> {
   const cx = width / 2
   const cy = height / 2
-  const r = Math.max(40, Math.min(width, height) / 2 - padding)
+  const r = Math.max(60, Math.min(width, height) / 2 - padding)
   const map = new Map<string, { x: number; y: number }>()
   const n = nodes.length
   if (n === 0) return map
@@ -206,4 +247,21 @@ export function tierStroke(tier: string): string {
   if (tier === 'critical') return '#f43f5e'
   if (tier === 'review') return '#f59e0b'
   return '#0ea5e9'
+}
+
+/** Slight curve so overlapping edges stay readable. */
+export function edgePath(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  bend = 0.18,
+): string {
+  const mx = (x1 + x2) / 2
+  const my = (y1 + y2) / 2
+  const dx = x2 - x1
+  const dy = y2 - y1
+  const cx = mx - dy * bend
+  const cy = my + dx * bend
+  return `M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`
 }

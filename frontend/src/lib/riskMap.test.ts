@@ -56,7 +56,7 @@ describe('buildRiskMap', () => {
     expect(map.emptyMessage).toBeUndefined()
   })
 
-  it('marks duplicate edges as dashed', () => {
+  it('marks duplicate edges as dashed self-loops', () => {
     const alerts: Alert[] = [
       {
         id: '2',
@@ -69,6 +69,27 @@ describe('buildRiskMap', () => {
         brands: ['BrandC', 'BrandD'],
         source_rule_id: 'DUP-PARA',
         source_label: 'duplicate_check',
+      },
+    ]
+    const map = buildRiskMap(items, alerts)
+    const dup = map.edges.find((e) => e.kind === 'duplicate')
+    expect(dup?.dashed).toBe(true)
+    expect(dup?.selfLoop).toBe(true)
+  })
+
+  it('accepts duplicate_dose alert type', () => {
+    const alerts: Alert[] = [
+      {
+        id: '3',
+        type: 'duplicate_dose',
+        tier: 'critical',
+        title: 'Duplicate + dose',
+        reason: 'same ingredient over limit',
+        suggested_action: 'review',
+        ingredients: ['Paracetamol'],
+        brands: ['BrandC', 'BrandD'],
+        source_rule_id: 'MAX-001',
+        source_label: 'merged:duplicate+dose',
       },
     ]
     const map = buildRiskMap(items, alerts)
